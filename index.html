@@ -292,8 +292,7 @@
                         </div>
                     </div>
                     <div class="control-panel" style="display: flex; flex-direction: column; gap: 10px;">
-                        <button id="start_webcam">실시간 웹캠 분석</button>
-                        <button id="upload_video_btn" style="background: transparent; border: 1px solid var(--neon-gold); color: var(--neon-gold);">영상 업로드 분석</button>
+                        <button id="upload_video_btn" style="background: var(--neon-blue); border: none; color: #000; font-weight: 700;">영상 업로드 분석 시작하기</button>
                         <input type="file" id="video_upload" accept="video/*" style="display: none;">
                     </div>
                 </aside>
@@ -516,7 +515,7 @@
             }
         }
 
-        let isVideoMode = false;
+        let isVideoMode = true; // 동영상 분석 전용 모드
 
         const pose = new Pose({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`});
         pose.setOptions({ modelComplexity: 1, smoothLandmarks: true, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
@@ -538,11 +537,11 @@
 
             const lm = results.poseLandmarks;
             
-            // 무릎 각도 계산 (엉덩이 - 무릎 - 발목)
+            // 무릎 각도 계산
             const lKA = calculateAngle(lm[23], lm[25], lm[27]);
             const rKA = calculateAngle(lm[24], lm[26], lm[28]);
             
-            // 어깨 각도 계산 (엉덩이 - 어깨 - 팔꿈치)
+            // 어깨 각도 계산
             const lSA = calculateAngle(lm[23], lm[11], lm[13]);
             const rSA = calculateAngle(lm[24], lm[12], lm[14]);
             
@@ -586,17 +585,6 @@
             canvasCtx.restore();
         });
 
-        const camera = new Camera(videoElement, {
-            onFrame: async () => {
-                if (!isVideoMode) {
-                    canvasElement.width = videoElement.videoWidth;
-                    canvasElement.height = videoElement.videoHeight;
-                    await pose.send({image: videoElement});
-                }
-            },
-            width: 1280, height: 720
-        });
-
         async function processVideoFrame() {
             if (isVideoMode && !videoElement.paused && !videoElement.ended) {
                 canvasElement.width = videoElement.videoWidth;
@@ -606,14 +594,6 @@
             }
         }
 
-        document.getElementById('start_webcam').addEventListener('click', () => {
-            isVideoMode = false;
-            videoElement.pause();
-            camera.start();
-            document.getElementById('start_webcam').innerText = i18n[currentLang].running;
-            document.getElementById('start_webcam').disabled = true;
-        });
-
         document.getElementById('upload_video_btn').addEventListener('click', () => {
             document.getElementById('video_upload').click();
         });
@@ -621,7 +601,7 @@
         document.getElementById('video_upload').addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
-                isVideoMode = true;
+                resetMetrics();
                 const url = URL.createObjectURL(file);
                 videoElement.src = url;
                 videoElement.controls = true;
@@ -633,6 +613,10 @@
         });
 
         // 초기 언어 설정
+        setLanguage('ko');
+        
+        // 초기 섹션 설정 (홈 화면)
+        showSection('hero');
         setLanguage('ko');
         
         // 초기 섹션 설정 (홈 화면)
