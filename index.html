@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>알파인 다이내믹스 :: AI 관절 분석 & 스포츠 과학</title>
+    <title>알파인 스키 :: AI 관절 분석 & 스포츠 과학</title>
     <meta name="description" content="운동 선수를 위한 AI 기반 실시간 관절 분석 도구. 부상 방지 및 경기력 향상을 위한 기술.">
     <meta name="google-adsense-account" content="ca-pub-5553376072633585">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5553376072633585"
@@ -134,18 +134,55 @@
 <body>
 
     <nav>
-        <a href="#" class="logo">ALPINE DYNAMICS</a>
+        <a href="#" class="logo">ALPINE SKI</a>
         <div class="menu">
+            <a href="#hero">홈</a>
+            <a href="#features">주요 기능</a>
             <a href="#tool">분석 도구</a>
             <a href="#about">기술 소개</a>
-            <a href="#blog">블로그</a>
             <a href="#privacy">개인정보처리방침</a>
         </div>
     </nav>
 
     <div class="content-wrapper">
+        <!-- HERO SECTION -->
+        <section id="hero" style="height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(5,5,9,0.7), rgba(5,5,9,0.7)), url('https://images.unsplash.com/photo-1551698618-1fed5d97530d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
+            <h1 style="font-family: var(--font-digit); font-size: 3.5rem; color: var(--neon-blue); margin-bottom: 20px; text-shadow: 0 0 20px rgba(0,212,255,0.5);">완벽한 턴을 위한 AI 코치</h1>
+            <p style="font-size: 1.2rem; max-width: 700px; margin-bottom: 40px; color: #fff;">최첨단 AI 기술로 당신의 스킹을 실시간 진단하고,<br>부상을 예방하며 완벽한 자세를 찾아보세요.</p>
+            <div style="display: flex; gap: 20px;">
+                <a href="#tool" style="padding: 15px 40px; background: var(--neon-blue); color: #000; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s;">분석 도구 시작하기</a>
+                <a href="#features" style="padding: 15px 40px; border: 1px solid #fff; color: #fff; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s;">주요 기능 보기</a>
+            </div>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section id="features" class="container" style="text-align: center;">
+            <h2 style="margin-bottom: 50px;">핵심 가치</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                <div class="article-card">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🛡️</div>
+                    <h3>부상 방지 알고리즘</h3>
+                    <p>무릎 인대(ACL) 손상 위험이 높은 각도를 실시간 감지하여 경고합니다.</p>
+                </div>
+                <div class="article-card">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">📊</div>
+                    <h3>정밀 자세 분석</h3>
+                    <p>턴의 대칭성과 하체 각도를 수치화하여 개선 포인트를 제공합니다.</p>
+                </div>
+                <div class="article-card">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🔒</div>
+                    <h3>완벽한 개인정보 보호</h3>
+                    <p>영상 데이터는 서버에 저장되지 않고 브라우저에서 즉시 처리됩니다.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- TOOL SECTION -->
-        <section id="tool" class="tool-section">
+        <section id="tool" class="tool-section" style="background: rgba(255,255,255,0.02); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="margin-bottom: 10px;">AI 분석 시스템</h2>
+                <p style="color: var(--text-muted);">카메라 권한을 허용하고 실시간 피드백을 확인하세요.</p>
+            </div>
             <div class="app-container">
                 <div class="video-box">
                     <video id="input_video"></video>
@@ -158,7 +195,7 @@
                         <button class="lang-btn" onclick="setLanguage('en')">EN</button>
                     </div>
                     <div>
-                        <h1 id="ui_title" style="font-size: 1.5rem; color: var(--neon-blue);">알파인 다이내믹스</h1>
+                        <h1 id="ui_title" style="font-size: 1.5rem; color: var(--neon-blue);">알파인 스키</h1>
                         <p id="ui_subtitle" style="font-size: 0.8rem; color: var(--text-muted);">국가대표 관절 분석 시스템 - v0.2</p>
                     </div>
                     <div class="stats-grid">
@@ -214,7 +251,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 알파인 다이내믹스 프로페셔널. 모든 권리 보유.</p>
+        <p>&copy; 2026 알파인 스키 프로페셔널. 모든 권리 보유.</p>
         <p>문의: <a href="mailto:contact@alpine-dynamics.pro" style="color: var(--neon-blue);">contact@alpine-dynamics.pro</a></p>
         <div class="footer-links">
             <a href="#privacy">개인정보처리방침</a>
@@ -231,7 +268,7 @@
         // i18n 데이터
         const i18n = {
             ko: {
-                title: "알파인 다이내믹스",
+                title: "알파인 스키",
                 subtitle: "국가대표 관절 분석 시스템 - v0.2",
                 left_knee: "왼쪽 무릎 각도",
                 right_knee: "오른쪽 무릎 각도",
@@ -243,7 +280,7 @@
                 running: "AI 분석 중..."
             },
             en: {
-                title: "Alpine Dynamics",
+                title: "Alpine Ski",
                 subtitle: "Pro Athlete Joint Analysis - v0.2",
                 left_knee: "Left Knee Angle",
                 right_knee: "Right Knee Angle",
