@@ -42,20 +42,23 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid var(--border-glass);
-            padding: 1rem 5%;
+            padding: 1.2rem 5%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* 중앙 정렬 */
             align-items: center;
+            gap: 50px; /* 로고와 메뉴 사이 적절한 간격 */
         }
         nav .logo { font-family: var(--font-digit); color: var(--neon-blue); font-size: 1.2rem; text-decoration: none; }
-        nav .menu { display: flex; gap: 20px; }
-        nav .menu a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        nav .menu { display: flex; gap: 30px; } /* 메뉴 아이템 간격 좁히기 */
+        nav .menu a { color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
         nav .menu a:hover { color: var(--neon-blue); }
 
         /* Main Wrapper */
         .content-wrapper { padding-top: 0; }
 
         /* Hero / Tool Section */
+        .view-section { display: none; } /* 기본 숨김 */
+
         .hero-section {
             height: 100vh;
             display: flex;
@@ -152,8 +155,8 @@
         <div class="menu">
             <a href="javascript:void(0)" onclick="showSection('hero')">홈</a>
             <a href="javascript:void(0)" onclick="showSection('features')">주요 기능</a>
-            <a href="javascript:void(0)" onclick="showSection('tool')">분석 도구</a>
             <a href="javascript:void(0)" onclick="showSection('about')">기술 소개</a>
+            <a href="javascript:void(0)" onclick="showSection('tool')">분석 도구</a>
         </div>
     </nav>
 
