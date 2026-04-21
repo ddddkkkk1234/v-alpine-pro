@@ -25,6 +25,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             background-color: var(--bg-space);
             color: var(--text-main);
@@ -52,11 +53,24 @@
         nav .menu a:hover { color: var(--neon-blue); }
 
         /* Main Wrapper */
-        .content-wrapper { padding-top: 80px; }
+        .content-wrapper { padding-top: 0; }
 
         /* Hero / Tool Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(5,5,9,0.7), rgba(5,5,9,0.7)), url('https://images.unsplash.com/photo-1551698618-1fed5d97530d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 0 5%;
+        }
+
         .tool-section {
-            padding: 40px 5%;
+            padding: 100px 5%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -140,13 +154,12 @@
             <a href="#features">주요 기능</a>
             <a href="#tool">분석 도구</a>
             <a href="#about">기술 소개</a>
-            <a href="#privacy">개인정보처리방침</a>
         </div>
     </nav>
 
     <div class="content-wrapper">
-        <!-- HERO SECTION -->
-        <section id="hero" style="height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(5,5,9,0.7), rgba(5,5,9,0.7)), url('https://images.unsplash.com/photo-1551698618-1fed5d97530d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
+        <!-- 1. HOME (HERO) SECTION -->
+        <section id="hero" class="hero-section">
             <h1 style="font-family: var(--font-digit); font-size: 3.5rem; color: var(--neon-blue); margin-bottom: 20px; text-shadow: 0 0 20px rgba(0,212,255,0.5);">완벽한 턴을 위한 AI 코치</h1>
             <p style="font-size: 1.2rem; max-width: 700px; margin-bottom: 40px; color: #fff;">최첨단 AI 기술로 당신의 스킹을 실시간 진단하고,<br>부상을 예방하며 완벽한 자세를 찾아보세요.</p>
             <div style="display: flex; gap: 20px;">
@@ -155,33 +168,33 @@
             </div>
         </section>
 
-        <!-- FEATURES SECTION -->
-        <section id="features" class="container" style="text-align: center;">
-            <h2 style="margin-bottom: 50px;">핵심 가치</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+        <!-- 2. FEATURES SECTION -->
+        <section id="features" class="container" style="padding: 120px 20px; text-align: center;">
+            <h2 style="margin-bottom: 60px; font-size: 2.5rem;">핵심 가치</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px;">
                 <div class="article-card">
-                    <div style="font-size: 3rem; margin-bottom: 20px;">🛡️</div>
-                    <h3>부상 방지 알고리즘</h3>
-                    <p>무릎 인대(ACL) 손상 위험이 높은 각도를 실시간 감지하여 경고합니다.</p>
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🛡️</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">부상 방지 알고리즘</h3>
+                    <p style="color: var(--text-main); opacity: 0.8;">무릎 인대(ACL) 손상 위험이 높은 각도를 실시간 감지하여 경고합니다. 안전한 스킹을 위한 필수 도구입니다.</p>
                 </div>
                 <div class="article-card">
-                    <div style="font-size: 3rem; margin-bottom: 20px;">📊</div>
-                    <h3>정밀 자세 분석</h3>
-                    <p>턴의 대칭성과 하체 각도를 수치화하여 개선 포인트를 제공합니다.</p>
+                    <div style="font-size: 4rem; margin-bottom: 20px;">📊</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">정밀 자세 분석</h3>
+                    <p style="color: var(--text-main); opacity: 0.8;">양쪽 무릎의 대칭성과 하체 각도를 수치화하여 당신만의 개선 포인트를 데이터로 제공합니다.</p>
                 </div>
                 <div class="article-card">
-                    <div style="font-size: 3rem; margin-bottom: 20px;">🔒</div>
-                    <h3>완벽한 개인정보 보호</h3>
-                    <p>영상 데이터는 서버에 저장되지 않고 브라우저에서 즉시 처리됩니다.</p>
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🔒</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 15px;">완벽한 개인정보 보호</h3>
+                    <p style="color: var(--text-main); opacity: 0.8;">영상 데이터는 어디에도 저장되지 않습니다. 모든 분석은 오직 당신의 기기 내에서 즉시 처리됩니다.</p>
                 </div>
             </div>
         </section>
 
-        <!-- TOOL SECTION -->
-        <section id="tool" class="tool-section" style="background: rgba(255,255,255,0.02); border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <h2 style="margin-bottom: 10px;">AI 분석 시스템</h2>
-                <p style="color: var(--text-muted);">카메라 권한을 허용하고 실시간 피드백을 확인하세요.</p>
+        <!-- 3. TOOL SECTION -->
+        <section id="tool" class="tool-section" style="background: rgba(255,255,255,0.02); padding: 120px 5%; border-top: 1px solid var(--border-glass); border-bottom: 1px solid var(--border-glass);">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 15px;">AI 분석 시스템</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">카메라 권한을 허용하고 실시간 피드백을 확인하세요.</p>
             </div>
             <div class="app-container">
                 <div class="video-box">
@@ -213,39 +226,33 @@
             </div>
         </section>
 
-        <!-- ABOUT SECTION -->
-        <section id="about" class="container">
-            <h2>AI 기반 스포츠 사이언스 기술 소개</h2>
-            <article class="article-card">
-                <h3>컴퓨터 비전을 활용한 실시간 운동 역학 분석</h3>
-                <p>알파인 다이내믹스(Alpine Dynamics)는 최첨단 AI 포즈 추정 모델인 MediaPipe를 활용하여 선수의 관절 각도를 1/30초 단위로 정밀하게 분석합니다. 특히 스키, 스노보드와 같은 고속 운동에서 무릎 관절의 동기화 상태와 상체의 기울기를 측정하는 것은 부상 방지와 기록 단축의 핵심입니다.</p>
-                <p>우리의 알고리즘은 수만 장의 운동 선수 데이터를 학습하여, 단순한 움직임 기록을 넘어 관절에 가해지는 부하를 실시간으로 예측합니다. 'Knee Sync v0.2' 엔진은 무릎의 내회전과 외회전 범위를 감지하여 ACL(전방십자인대) 부상 위험이 높아지는 순간 사용자에게 즉각적인 경고를 보냅니다.</p>
-            </article>
-        </section>
-
-        <!-- BLOG SECTION -->
-        <section id="blog" class="container">
-            <h2>스포츠 정보 & 블로그</h2>
-            <div class="article-card">
-                <h3>무릎 부상을 방지하기 위한 3가지 필수 관절 각도</h3>
-                <p>스포츠 과학 연구에 따르면, 착지 시 무릎 각도가 120도 미만으로 굽혀지지 않거나 좌우 불균형이 15% 이상 발생할 때 부상 확률이 비약적으로 상승합니다. AI 분석 도구를 통해 자신의 평균 각도를 체크하고 교정하는 습관을 들이는 것이 중요합니다...</p>
-            </div>
-            <div class="article-card">
-                <h3>MediaPipe와 TensorFlow를 활용한 운동 분석 앱 제작기</h3>
-                <p>웹 환경에서 고성능 AI 모델을 구동하기 위해서는 WebGL 가속이 필수적입니다. 알파인 다이내믹스는 클라이언트 사이드 프로세싱을 통해 사용자의 영상 데이터를 서버로 전송하지 않고 기기 내에서 즉시 분석하여 보안과 속도를 모두 잡았습니다...</p>
+        <!-- 4. ABOUT (TECHNOLOGY) SECTION -->
+        <section id="about" class="container" style="padding: 120px 20px;">
+            <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 60px;">AI 스포츠 사이언스 기술</h2>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 30px;">
+                <article class="article-card">
+                    <h3>컴퓨터 비전 기반 실시간 역학 분석</h3>
+                    <p>알파인 스키(Alpine Ski) 분석 시스템은 구글의 MediaPipe 프레임워크를 기반으로 구축되었습니다. 초당 30프레임 이상의 속도로 33개의 주요 신체 관절 포인트를 추적하며, 특히 스키 주행 시 가장 큰 부하가 걸리는 무릎 관절의 가동 범위를 실시간으로 계산합니다.</p>
+                </article>
+                <article class="article-card">
+                    <h3>부상 예방을 위한 데이터 가이드</h3>
+                    <p>스포츠 의학 연구에 따르면, 급격한 턴이나 착지 시 무릎 각도가 120도 이하로 깊게 굽혀지면서 발생하는 회전력은 전방십자인대(ACL) 파열의 주요 원인이 됩니다. 본 시스템은 이러한 위험 구간을 시각화하여 사용자가 스스로 안전한 범위를 인지하도록 돕습니다.</p>
+                </article>
             </div>
         </section>
 
-        <!-- PRIVACY SECTION -->
-        <section id="privacy" class="container">
-            <h2>개인정보처리방침</h2>
-            <div class="article-card" style="font-size: 0.85rem;">
-                <p>알파인 다이내믹스는 사용자의 프라이버시를 최우선으로 생각합니다. 본 서비스의 카메라 접근 및 데이터 처리에 대한 방침은 다음과 같습니다:</p>
-                <ul>
-                    <li><strong>카메라 권한:</strong> 본 앱은 실시간 관절 분석을 위해서만 카메라를 사용하며, 촬영된 영상은 어디에도 저장되거나 외부로 전송되지 않습니다.</li>
-                    <li><strong>로컬 처리:</strong> 모든 AI 연산은 사용자의 웹 브라우저 내(Local)에서만 수행됩니다.</li>
-                    <li><strong>쿠키 및 광고:</strong> 본 사이트는 서비스 품질 향상 및 Google AdSense 광고 게재를 위해 쿠키를 사용할 수 있습니다.</li>
-                </ul>
+        <!-- 5. PRIVACY POLICY (BOTTOM AREA) -->
+        <section id="privacy" style="background: #08080c; padding: 80px 5%; border-top: 1px solid var(--border-glass);">
+            <div class="container" style="max-width: 900px;">
+                <h2 style="font-size: 1.5rem; color: var(--text-main); margin-bottom: 30px;">개인정보처리방침 및 데이터 보안</h2>
+                <div style="color: var(--text-muted); line-height: 1.8; font-size: 0.95rem;">
+                    <p style="margin-bottom: 20px;">본 서비스는 사용자의 프라이버시를 최우선으로 보호하기 위해 다음과 같은 보안 원칙을 준수합니다.</p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 15px;">✅ <strong>영상 비저장 원칙:</strong> 카메라를 통해 입력되는 모든 영상 데이터는 실시간 분석 직후 즉시 폐기됩니다. 어떠한 형태의 녹화물도 서버로 전송되거나 저장되지 않습니다.</li>
+                        <li style="margin-bottom: 15px;">✅ <strong>기기 내 로컬 처리:</strong> 모든 AI 연산 및 데이터 처리는 사용자의 브라우저 환경 내에서만 수행됩니다. 외부 클라우드로 데이터가 유출되지 않는 안전한 구조입니다.</li>
+                        <li style="margin-bottom: 15px;">✅ <strong>카메라 접근 권한:</strong> 카메라 접근 권한은 오직 관절 분석 기능을 위해서만 사용되며, 사용자가 분석 버튼을 누를 때만 활성화됩니다.</li>
+                    </ul>
+                </div>
             </div>
         </section>
     </div>
@@ -255,7 +262,7 @@
         <p>문의: <a href="mailto:contact@alpine-dynamics.pro" style="color: var(--neon-blue);">contact@alpine-dynamics.pro</a></p>
         <div class="footer-links">
             <a href="#privacy">개인정보처리방침</a>
-            <a href="#about">회사 소개</a>
+            <a href="#about">기술 소개</a>
             <a href="https://developers.google.com/mediapipe" target="_blank">MediaPipe 기술 기반</a>
         </div>
     </footer>
