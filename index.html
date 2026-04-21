@@ -148,68 +148,72 @@
 <body>
 
     <nav>
-        <a href="#" class="logo">ALPINE SKI</a>
+        <a href="javascript:void(0)" onclick="showSection('hero')" class="logo">ALPINE SKI</a>
         <div class="menu">
-            <a href="#hero">홈</a>
-            <a href="#features">주요 기능</a>
-            <a href="#tool">분석 도구</a>
-            <a href="#about">기술 소개</a>
+            <a href="javascript:void(0)" onclick="showSection('hero')">홈</a>
+            <a href="javascript:void(0)" onclick="showSection('features')">주요 기능</a>
+            <a href="javascript:void(0)" onclick="showSection('tool')">분석 도구</a>
+            <a href="javascript:void(0)" onclick="showSection('about')">기술 소개</a>
         </div>
     </nav>
 
     <div class="content-wrapper">
         <!-- 1. HOME (HERO) SECTION -->
-        <section id="hero" class="hero-section">
-            <div style="max-width: 900px;">
-                <h1 style="font-family: var(--font-digit); font-size: 3.5rem; color: var(--neon-blue); margin-bottom: 25px; text-shadow: 0 0 20px rgba(0,212,255,0.5);">완벽한 턴을 위한 AI 코치</h1>
-                <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 45px; color: rgba(255,255,255,0.9); font-weight: 400;">
-                    알파인 스키는 단순한 스포츠를 넘어 중력과 원심력을 다루는 과학입니다.<br>
-                    우리는 당신의 움직임을 초정밀 데이터로 변환하여,<br>
-                    더 빠르고 안전한 스킹의 길을 제시합니다.
-                </p>
-                <div style="display: flex; gap: 20px; justify-content: center;">
-                    <a href="#features" style="padding: 18px 45px; background: var(--neon-blue); color: #000; text-decoration: none; border-radius: 50px; font-weight: 700; transition: 0.3s; box-shadow: 0 0 15px rgba(0,212,255,0.3);">시작하기</a>
-                    <a href="#about" style="padding: 18px 45px; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; transition: 0.3s;">기술 배경</a>
+        <section id="hero" class="view-section">
+            <div class="hero-section">
+                <div style="max-width: 900px;">
+                    <h1 style="font-family: var(--font-digit); font-size: 3.5rem; color: var(--neon-blue); margin-bottom: 25px; text-shadow: 0 0 20px rgba(0,212,255,0.5);">완벽한 턴을 위한 AI 코치</h1>
+                    <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 45px; color: rgba(255,255,255,0.9); font-weight: 400;">
+                        알파인 스키는 단순한 스포츠를 넘어 중력과 원심력을 다루는 과학입니다.<br>
+                        우리는 당신의 움직임을 초정밀 데이터로 변환하여,<br>
+                        더 빠르고 안전한 스킹의 길을 제시합니다.
+                    </p>
+                    <div style="display: flex; gap: 20px; justify-content: center;">
+                        <a href="javascript:void(0)" onclick="showSection('features')" style="padding: 18px 45px; background: var(--neon-blue); color: #000; text-decoration: none; border-radius: 50px; font-weight: 700; transition: 0.3s; box-shadow: 0 0 15px rgba(0,212,255,0.3);">시작하기</a>
+                        <a href="javascript:void(0)" onclick="showSection('about')" style="padding: 18px 45px; border: 1px solid rgba(255,255,255,0.3); color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; transition: 0.3s;">기술 배경</a>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- 2. FEATURES SECTION -->
-        <section id="features" class="container" style="padding: 150px 20px; text-align: center;">
-            <div style="max-width: 800px; margin: 0 auto 80px;">
-                <h2 style="font-size: 3rem; margin-bottom: 25px; color: var(--neon-blue);">핵심 가치</h2>
-                <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.8;">
-                    우리는 세 가지 핵심 원칙에 집중합니다. 부상으로부터의 자유, <br>
-                    데이터에 기반한 실력 향상, 그리고 철저한 개인정보 보호입니다.
-                </p>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
-                <div class="article-card" style="background: rgba(255,255,255,0.02); padding: 50px 30px;">
-                    <div style="font-size: 4.5rem; margin-bottom: 30px;">🛡️</div>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--neon-gold);">부상 방지 알고리즘</h3>
-                    <p style="color: var(--text-main); opacity: 0.75; font-size: 1.05rem;">
-                        무릎 관절의 회전력과 각도를 실시간으로 추적하여 전방십자인대(ACL) 손상 위험 구간 진입 시 즉각적인 시각적 피드백을 제공합니다.
+        <section id="features" class="view-section" style="padding: 100px 20px; text-align: center; min-height: 80vh;">
+            <div class="container">
+                <div style="max-width: 800px; margin: 0 auto 80px;">
+                    <h2 style="font-size: 3rem; margin-bottom: 25px; color: var(--neon-blue);">핵심 가치</h2>
+                    <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.8;">
+                        우리는 세 가지 핵심 원칙에 집중합니다. 부상으로부터의 자유, <br>
+                        데이터에 기반한 실력 향상, 그리고 철저한 개인정보 보호입니다.
                     </p>
                 </div>
-                <div class="article-card" style="background: rgba(255,255,255,0.02); padding: 50px 30px;">
-                    <div style="font-size: 4.5rem; margin-bottom: 30px;">📊</div>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--neon-blue);">정밀 자세 분석</h3>
-                    <p style="color: var(--text-main); opacity: 0.75; font-size: 1.05rem;">
-                        좌우 균형과 무릎의 굽힘 정도를 0.1도 단위로 정밀하게 측정합니다. 당신의 턴이 왜 불균형한지 수치로 증명해 드립니다.
-                    </p>
-                </div>
-                <div class="article-card" style="background: rgba(255,255,255,0.02); padding: 50px 30px;">
-                    <div style="font-size: 4.5rem; margin-bottom: 30px;">🔒</div>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--neon-green);">데이터 보안</h3>
-                    <p style="color: var(--text-main); opacity: 0.75; font-size: 1.05rem;">
-                        사용자의 영상은 서버로 전송되지 않습니다. 모든 연산은 웹 브라우저 내에서 즉시 처리되어 휘발되므로 프라이버시 유출 우려가 전혀 없습니다.
-                    </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+                    <div class="article-card" style="background: rgba(255,255,255,0.02); padding: 50px 30px;">
+                        <div style="font-size: 4.5rem; margin-bottom: 30px;">🛡️</div>
+                        <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--neon-gold);">부상 방지 알고리즘</h3>
+                        <p style="color: var(--text-main); opacity: 0.75; font-size: 1.05rem;">
+                            무릎 관절의 회전력과 각도를 실시간으로 추적하여 전방십자인대(ACL) 손상 위험 구간 진입 시 즉각적인 시각적 피드백을 제공합니다.
+                        </p>
+                    </div>
+                    <div class="article-card" style="background: rgba(255,255,255,0.02); padding: 50px 30px;">
+                        <div style="font-size: 4.5rem; margin-bottom: 30px;">📊</div>
+                        <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--neon-blue);">정밀 자세 분석</h3>
+                        <p style="color: var(--text-main); opacity: 0.75; font-size: 1.05rem;">
+                            좌우 균형과 무릎의 굽힘 정도를 0.1도 단위로 정밀하게 측정합니다. 당신의 턴이 왜 불균형한지 수치로 증명해 드립니다.
+                        </p>
+                    </div>
+                    <div class="article-card" style="background: rgba(255,255,255,0.02); padding: 50px 30px;">
+                        <div style="font-size: 4.5rem; margin-bottom: 30px;">🔒</div>
+                        <h3 style="font-size: 1.8rem; margin-bottom: 20px; color: var(--neon-green);">데이터 보안</h3>
+                        <p style="color: var(--text-main); opacity: 0.75; font-size: 1.05rem;">
+                            사용자의 영상은 서버로 전송되지 않습니다. 모든 연산은 웹 브라우저 내에서 즉시 처리되어 휘발되므로 프라이버시 유출 우려가 전혀 없습니다.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- 3. TOOL SECTION -->
-        <section id="tool" class="tool-section" style="background: linear-gradient(to bottom, #050509, #0a0a15); padding: 150px 5%; border-top: 1px solid var(--border-glass);">
+        <section id="tool" class="view-section" style="padding: 100px 5%; min-height: 80vh;">
             <div style="text-align: center; max-width: 800px; margin: 0 auto 70px;">
                 <h2 style="font-size: 3rem; margin-bottom: 25px;">AI 분석 시스템</h2>
                 <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.8;">
@@ -248,32 +252,34 @@
         </section>
 
         <!-- 4. ABOUT (TECHNOLOGY) SECTION -->
-        <section id="about" class="container" style="padding: 150px 20px;">
-            <div style="text-align: center; max-width: 800px; margin: 0 auto 80px;">
-                <h2 style="font-size: 3rem; margin-bottom: 25px; color: var(--neon-blue);">기술 소개</h2>
-                <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.8;">
-                    알파인 스키의 AI 기술은 스포츠 과학과 인공지능의 <br>
-                    결합으로 탄생했습니다. 정교한 분석의 핵심 기술을 소개합니다.
-                </p>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px;">
-                <article class="article-card" style="margin-bottom: 0;">
-                    <h3 style="color: var(--neon-gold); font-size: 1.6rem; margin-bottom: 20px;">MediaPipe Pose Landmark</h3>
-                    <p style="line-height: 1.8; opacity: 0.85;">
-                        구글의 최첨단 포즈 추정 기술을 사용하여 전신 33개 관절의 X, Y, Z 좌표를 실시간으로 추출합니다. 이는 웨어러블 센서 없이도 영상만으로 고가의 장비와 유사한 분석 정밀도를 실현합니다.
+        <section id="about" class="view-section" style="padding: 100px 20px; min-height: 80vh;">
+            <div class="container">
+                <div style="text-align: center; max-width: 800px; margin: 0 auto 80px;">
+                    <h2 style="font-size: 3rem; margin-bottom: 25px; color: var(--neon-blue);">기술 소개</h2>
+                    <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.8;">
+                        알파인 스키의 AI 기술은 스포츠 과학과 인공지능의 <br>
+                        결합으로 탄생했습니다. 정교한 분석의 핵심 기술을 소개합니다.
                     </p>
-                </article>
-                <article class="article-card" style="margin-bottom: 0;">
-                    <h3 style="color: var(--neon-gold); font-size: 1.6rem; margin-bottom: 20px;">생체역학 기반 알고리즘</h3>
-                    <p style="line-height: 1.8; opacity: 0.85;">
-                        스키 주행 시 발생하는 무릎의 외반(Valgus) 현상을 감지합니다. 특히 대퇴골과 경골 사이의 각도를 분석하여, 인체공학적으로 인대가 견딜 수 있는 한계치를 넘어서는 순간을 즉시 포착합니다.
-                    </p>
-                </article>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px;">
+                    <article class="article-card" style="margin-bottom: 0;">
+                        <h3 style="color: var(--neon-gold); font-size: 1.6rem; margin-bottom: 20px;">MediaPipe Pose Landmark</h3>
+                        <p style="line-height: 1.8; opacity: 0.85;">
+                            구글의 최첨단 포즈 추정 기술을 사용하여 전신 33개 관절의 X, Y, Z 좌표를 실시간으로 추출합니다. 이는 웨어러블 센서 없이도 영상만으로 고가의 장비와 유사한 분석 정밀도를 실현합니다.
+                        </p>
+                    </article>
+                    <article class="article-card" style="margin-bottom: 0;">
+                        <h3 style="color: var(--neon-gold); font-size: 1.6rem; margin-bottom: 20px;">생체역학 기반 알고리즘</h3>
+                        <p style="line-height: 1.8; opacity: 0.85;">
+                            스키 주행 시 발생하는 무릎의 외반(Valgus) 현상을 감지합니다. 특히 대퇴골과 경골 사이의 각도를 분석하여, 인체공학적으로 인대가 견딜 수 있는 한계치를 넘어서는 순간을 즉시 포착합니다.
+                        </p>
+                    </article>
+                </div>
             </div>
         </section>
 
-        <!-- 5. PRIVACY POLICY (BOTTOM AREA) -->
-        <section id="privacy" style="background: #08080c; padding: 100px 5%; border-top: 1px solid var(--border-glass);">
+        <!-- 5. PRIVACY POLICY (SHOWN IN FOOTER OR ACCESSIBLE) -->
+        <section id="privacy" class="view-section" style="background: #08080c; padding: 100px 5%; border-top: 1px solid var(--border-glass);">
             <div class="container" style="max-width: 900px;">
                 <h2 style="font-size: 2rem; color: var(--text-main); margin-bottom: 40px; text-align: center;">데이터 보안 및 프라이버시 정책</h2>
                 <div style="background: rgba(255,255,255,0.02); padding: 40px; border-radius: 20px; border: 1px solid var(--border-glass);">
@@ -303,8 +309,8 @@
         <p>&copy; 2026 알파인 스키 프로페셔널. 모든 권리 보유.</p>
         <p>문의: <a href="mailto:contact@alpine-dynamics.pro" style="color: var(--neon-blue);">contact@alpine-dynamics.pro</a></p>
         <div class="footer-links">
-            <a href="#privacy">개인정보처리방침</a>
-            <a href="#about">기술 소개</a>
+            <a href="javascript:void(0)" onclick="showSection('privacy')">개인정보처리방침</a>
+            <a href="javascript:void(0)" onclick="showSection('about')">회사 소개</a>
             <a href="https://developers.google.com/mediapipe" target="_blank">MediaPipe 기술 기반</a>
         </div>
     </footer>
@@ -314,6 +320,28 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils"></script>
 
     <script>
+        // 화면 전환 함수
+        function showSection(sectionId) {
+            // 모든 섹션 숨기기
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            // 선택된 섹션만 보여주기
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+                // 상단으로 스크롤 초기화
+                window.scrollTo(0, 0);
+            }
+            
+            // 메뉴 활성화 상태 표시 (선택사항)
+            document.querySelectorAll('.menu a').forEach(link => {
+                link.style.color = 'var(--text-main)';
+            });
+            // 텍스트 매칭으로 활성화 색상 변경 (간단한 구현)
+            event.target.style.color = 'var(--neon-blue)';
+        }
+
         // i18n 데이터
         const i18n = {
             ko: {
@@ -432,6 +460,9 @@
 
         // 초기 언어 설정
         setLanguage('ko');
+        
+        // 초기 섹션 설정 (홈 화면)
+        showSection('hero');
     </script>
 </body>
 </html>
