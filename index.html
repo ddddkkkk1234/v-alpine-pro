@@ -275,8 +275,10 @@
                         <h2 id="ui_injury_risk" style="font-size: 0.9rem; color: var(--text-muted);">부상 위험도</h2>
                         <div id="riskLevel" class="risk-low">안전</div>
                     </div>
-                    <div class="control-panel">
-                        <button id="start_webcam">AI 분석 시작하기</button>
+                    <div class="control-panel" style="display: flex; flex-direction: column; gap: 10px;">
+                        <button id="start_webcam">실시간 웹캠 분석</button>
+                        <button id="upload_video_btn" style="background: transparent; border: 1px solid var(--neon-gold); color: var(--neon-gold);">영상 업로드 분석</button>
+                        <input type="file" id="video_upload" accept="video/*" style="display: none;">
                     </div>
                 </aside>
             </div>
@@ -417,7 +419,8 @@
                 left_knee: "왼쪽 무릎 각도",
                 right_knee: "오른쪽 무릎 각도",
                 injury_risk: "부상 위험도",
-                start_webcam: "분석 시작하기",
+                start_webcam: "실시간 웹캠 분석",
+                upload_video: "영상 업로드 분석",
                 risk_safe: "안전",
                 risk_warning: "주의",
                 risk_critical: "위험",
@@ -429,7 +432,8 @@
                 left_knee: "Left Knee Angle",
                 right_knee: "Right Knee Angle",
                 injury_risk: "Injury Risk",
-                start_webcam: "Start Analysis",
+                start_webcam: "Live Webcam",
+                upload_video: "Upload Video",
                 risk_safe: "Safe",
                 risk_warning: "Warning",
                 risk_critical: "Critical",
@@ -447,12 +451,8 @@
             document.getElementById('ui_right_knee').innerText = i18n[lang].right_knee;
             document.getElementById('ui_injury_risk').innerText = i18n[lang].injury_risk;
             
-            const startBtn = document.getElementById('start_webcam');
-            if (startBtn.disabled) {
-                startBtn.innerText = i18n[lang].running;
-            } else {
-                startBtn.innerText = i18n[lang].start_webcam;
-            }
+            document.getElementById('start_webcam').innerText = i18n[lang].start_webcam;
+            document.getElementById('upload_video_btn').innerText = i18n[lang].upload_video;
             
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
@@ -471,6 +471,8 @@
         const leftKneeAngleText = document.getElementById('leftKneeAngle');
         const rightKneeAngleText = document.getElementById('rightKneeAngle');
         const riskLevelText = document.getElementById('riskLevel');
+
+        let isVideoMode = false;
 
         const pose = new Pose({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`});
         pose.setOptions({ modelComplexity: 1, smoothLandmarks: true, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
@@ -512,17 +514,48 @@
 
         const camera = new Camera(videoElement, {
             onFrame: async () => {
-                canvasElement.width = videoElement.videoWidth;
-                canvasElement.height = videoElement.videoHeight;
-                await pose.send({image: videoElement});
+                if (!isVideoMode) {
+                    canvasElement.width = videoElement.videoWidth;
+                    canvasElement.height = videoElement.videoHeight;
+                    await pose.send({image: videoElement});
+                }
             },
             width: 1280, height: 720
         });
 
+        async function processVideoFrame() {
+            if (isVideoMode && !videoElement.paused && !videoElement.ended) {
+                canvasElement.width = videoElement.videoWidth;
+                canvasElement.height = videoElement.videoHeight;
+                await pose.send({image: videoElement});
+                requestAnimationFrame(processVideoFrame);
+            }
+        }
+
         document.getElementById('start_webcam').addEventListener('click', () => {
+            isVideoMode = false;
+            videoElement.pause();
             camera.start();
             document.getElementById('start_webcam').innerText = i18n[currentLang].running;
             document.getElementById('start_webcam').disabled = true;
+        });
+
+        document.getElementById('upload_video_btn').addEventListener('click', () => {
+            document.getElementById('video_upload').click();
+        });
+
+        document.getElementById('video_upload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                isVideoMode = true;
+                const url = URL.createObjectURL(file);
+                videoElement.src = url;
+                videoElement.controls = true;
+                videoElement.play();
+                videoElement.onplay = () => {
+                    processVideoFrame();
+                };
+            }
         });
 
         // 초기 언어 설정
