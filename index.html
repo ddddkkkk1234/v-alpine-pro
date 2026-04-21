@@ -277,6 +277,20 @@
                         <h2 id="ui_injury_risk" style="font-size: 0.9rem; color: var(--text-muted);">부상 위험도</h2>
                         <div id="riskLevel" class="risk-low">안전</div>
                     </div>
+
+                    <div style="margin-top: 10px; border-top: 1px solid var(--border-glass); padding-top: 20px;">
+                        <h3 id="ui_averages_title" style="font-size: 0.9rem; color: var(--neon-gold); margin-bottom: 15px; font-family: var(--font-digit);">ANALYSIS SUMMARY (AVG)</h3>
+                        <div class="stats-grid" style="grid-template-columns: 1fr 1fr; font-size: 0.8rem; opacity: 0.8;">
+                            <div class="stat-box" style="padding: 10px;"><span id="ui_avg_lka">L-Knee Avg</span><div class="value" id="avgLKA" style="font-size: 1.2rem;">0°</div></div>
+                            <div class="stat-box" style="padding: 10px;"><span id="ui_avg_rka">R-Knee Avg</span><div class="value" id="avgRKA" style="font-size: 1.2rem;">0°</div></div>
+                            <div class="stat-box" style="padding: 10px;"><span id="ui_avg_lsa">L-Shoulder Avg</span><div class="value" id="avgLSA" style="font-size: 1.2rem;">0°</div></div>
+                            <div class="stat-box" style="padding: 10px;"><span id="ui_avg_rsa">R-Shoulder Avg</span><div class="value" id="avgRSA" style="font-size: 1.2rem;">0°</div></div>
+                        </div>
+                        <div class="stat-box" style="margin-top: 10px; text-align: center;">
+                            <span id="ui_avg_risk">평균 위험 점수</span>
+                            <div class="value" id="avgRiskScore" style="font-size: 1.5rem; color: var(--neon-red);">0%</div>
+                        </div>
+                    </div>
                     <div class="control-panel" style="display: flex; flex-direction: column; gap: 10px;">
                         <button id="start_webcam">실시간 웹캠 분석</button>
                         <button id="upload_video_btn" style="background: transparent; border: 1px solid var(--neon-gold); color: var(--neon-gold);">영상 업로드 분석</button>
@@ -476,6 +490,32 @@
         const rightShoulderAngleText = document.getElementById('rightShoulderAngle');
         const riskLevelText = document.getElementById('riskLevel');
 
+        // 평균 데이터 관련 변수
+        const avgElements = {
+            lka: document.getElementById('avgLKA'),
+            rka: document.getElementById('avgRKA'),
+            lsa: document.getElementById('avgLSA'),
+            rsa: document.getElementById('avgRSA'),
+            risk: document.getElementById('avgRiskScore')
+        };
+        let analysisMetrics = {
+            count: 0,
+            sumLKA: 0, sumRKA: 0,
+            sumLSA: 0, sumRSA: 0,
+            sumRisk: 0
+        };
+
+        function resetMetrics() {
+            analysisMetrics = { count: 0, sumLKA: 0, sumRKA: 0, sumLSA: 0, sumRSA: 0, sumRisk: 0 };
+            if (avgElements.lka) {
+                avgElements.lka.innerText = '0°';
+                avgElements.rka.innerText = '0°';
+                avgElements.lsa.innerText = '0°';
+                avgElements.rsa.innerText = '0°';
+                avgElements.risk.innerText = '0%';
+            }
+        }
+
         let isVideoMode = false;
 
         const pose = new Pose({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`});
@@ -511,16 +551,38 @@
             leftShoulderAngleText.innerText = `${lSA}°`;
             rightShoulderAngleText.innerText = `${rSA}°`;
 
+            let currentRiskScore = 0;
             if (lKA < 100 || rKA < 100) {
                 riskLevelText.innerText = i18n[currentLang].risk_critical;
                 riskLevelText.className = "risk-high";
-            } else if (lA < 120 || rA < 120) {
+                currentRiskScore = 100;
+            } else if (lKA < 120 || rKA < 120) {
                 riskLevelText.innerText = i18n[currentLang].risk_warning;
                 riskLevelText.className = "risk-mid";
+                currentRiskScore = 50;
             } else {
                 riskLevelText.innerText = i18n[currentLang].risk_safe;
                 riskLevelText.className = "risk-low";
+                currentRiskScore = 0;
             }
+
+            // 평균 데이터 업데이트
+            analysisMetrics.count++;
+            analysisMetrics.sumLKA += lKA;
+            analysisMetrics.sumRKA += rKA;
+            analysisMetrics.sumLSA += lSA;
+            analysisMetrics.sumRSA += rSA;
+            analysisMetrics.sumRisk += currentRiskScore;
+
+            const count = analysisMetrics.count;
+            if (avgElements.lka) {
+                avgElements.lka.innerText = `${Math.round(analysisMetrics.sumLKA / count)}°`;
+                avgElements.rka.innerText = `${Math.round(analysisMetrics.sumRKA / count)}°`;
+                avgElements.lsa.innerText = `${Math.round(analysisMetrics.sumLSA / count)}°`;
+                avgElements.rsa.innerText = `${Math.round(analysisMetrics.sumRSA / count)}°`;
+                avgElements.risk.innerText = `${Math.round(analysisMetrics.sumRisk / count)}%`;
+            }
+
             canvasCtx.restore();
         });
 
