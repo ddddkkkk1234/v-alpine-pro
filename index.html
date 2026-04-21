@@ -270,6 +270,8 @@
                     <div class="stats-grid">
                         <div class="stat-box"><span class="label" id="ui_left_knee">왼쪽 무릎 각도</span><div class="value" id="leftKneeAngle">0°</div></div>
                         <div class="stat-box"><span class="label" id="ui_right_knee">오른쪽 무릎 각도</span><div class="value" id="rightKneeAngle">0°</div></div>
+                        <div class="stat-box"><span class="label" id="ui_left_shoulder">왼쪽 어깨 각도</span><div class="value" id="leftShoulderAngle">0°</div></div>
+                        <div class="stat-box"><span class="label" id="ui_right_shoulder">오른쪽 어깨 각도</span><div class="value" id="rightShoulderAngle">0°</div></div>
                     </div>
                     <div class="risk-assessment">
                         <h2 id="ui_injury_risk" style="font-size: 0.9rem; color: var(--text-muted);">부상 위험도</h2>
@@ -470,6 +472,8 @@
         const canvasCtx = canvasElement.getContext('2d');
         const leftKneeAngleText = document.getElementById('leftKneeAngle');
         const rightKneeAngleText = document.getElementById('rightKneeAngle');
+        const leftShoulderAngleText = document.getElementById('leftShoulderAngle');
+        const rightShoulderAngleText = document.getElementById('rightShoulderAngle');
         const riskLevelText = document.getElementById('riskLevel');
 
         let isVideoMode = false;
@@ -493,13 +497,21 @@
             drawLandmarks(canvasCtx, results.poseLandmarks, {color: '#ffffff', lineWidth: 1, radius: 3});
 
             const lm = results.poseLandmarks;
-            const lA = calculateAngle(lm[23], lm[25], lm[27]);
-            const rA = calculateAngle(lm[24], lm[26], lm[28]);
             
-            leftKneeAngleText.innerText = `${lA}°`;
-            rightKneeAngleText.innerText = `${rA}°`;
+            // 무릎 각도 계산 (엉덩이 - 무릎 - 발목)
+            const lKA = calculateAngle(lm[23], lm[25], lm[27]);
+            const rKA = calculateAngle(lm[24], lm[26], lm[28]);
+            
+            // 어깨 각도 계산 (엉덩이 - 어깨 - 팔꿈치)
+            const lSA = calculateAngle(lm[23], lm[11], lm[13]);
+            const rSA = calculateAngle(lm[24], lm[12], lm[14]);
+            
+            leftKneeAngleText.innerText = `${lKA}°`;
+            rightKneeAngleText.innerText = `${rKA}°`;
+            leftShoulderAngleText.innerText = `${lSA}°`;
+            rightShoulderAngleText.innerText = `${rSA}°`;
 
-            if (lA < 100 || rA < 100) {
+            if (lKA < 100 || rKA < 100) {
                 riskLevelText.innerText = i18n[currentLang].risk_critical;
                 riskLevelText.className = "risk-high";
             } else if (lA < 120 || rA < 120) {
