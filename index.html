@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>알파인 스키 :: AI 관절 분석 & 스포츠 과학</title>
-    <meta name="description" content="운동 선수를 위한 AI 기반 실시간 관절 분석 도구. 부상 방지 및 경기력 향상을 위한 기술.">
+    <title>KINECTI :: 정밀 동작 분석 & 스포츠 과학</title>
+    <meta name="description" content="운동 선수를 위한 정밀 동작 분석 도구. 부상 방지 및 경기력 향상을 위한 기술.">
     <meta name="google-adsense-account" content="ca-pub-5553376072633585">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5553376072633585"
      crossorigin="anonymous"></script>
@@ -52,6 +52,17 @@
         nav .menu { display: flex; gap: 30px; } /* 메뉴 아이템 간격 좁히기 */
         nav .menu a { color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
         nav .menu a:hover { color: var(--neon-blue); }
+        nav .menu a.login-btn {
+            border: 1px solid var(--neon-blue);
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: var(--neon-blue) !important;
+            margin-left: 10px;
+        }
+        nav .menu a.login-btn:hover {
+            background: var(--neon-blue);
+            color: #000 !important;
+        }
 
         /* Main Wrapper */
         .content-wrapper { padding-top: 0; }
@@ -151,12 +162,13 @@
 <body>
 
     <nav>
-        <a href="javascript:void(0)" onclick="showSection('hero')" class="logo">ALPINE SKI</a>
+        <a href="javascript:void(0)" onclick="showSection('hero')" class="logo">KINECTI</a>
         <div class="menu">
             <a href="javascript:void(0)" onclick="showSection('hero')">홈</a>
             <a href="javascript:void(0)" onclick="showSection('features')">주요 기능</a>
             <a href="javascript:void(0)" onclick="showSection('about')">기술 소개</a>
             <a href="javascript:void(0)" onclick="showSection('tool')">분석 도구</a>
+            <a href="javascript:void(0)" onclick="showSection('login')" class="login-btn">로그인</a>
         </div>
     </nav>
 
@@ -165,11 +177,11 @@
         <section id="hero" class="view-section">
             <div class="hero-section">
                 <div style="max-width: 900px;">
-                    <h1 style="font-family: var(--font-digit); font-size: 3.5rem; color: var(--neon-blue); margin-bottom: 25px; text-shadow: 0 0 20px rgba(0,212,255,0.5);">완벽한 턴을 위한 AI 코치</h1>
+                    <h1 style="font-family: var(--font-digit); font-size: 3.5rem; color: var(--neon-blue); margin-bottom: 25px; text-shadow: 0 0 20px rgba(0,212,255,0.5);">완벽한 움직임을 위한 정밀 가이드</h1>
                     <p style="font-size: 1.4rem; line-height: 1.8; margin-bottom: 45px; color: rgba(255,255,255,0.9); font-weight: 400;">
-                        알파인 스키는 단순한 스포츠를 넘어 중력과 원심력을 다루는 과학입니다.<br>
-                        우리는 당신의 움직임을 초정밀 데이터로 변환하여,<br>
-                        더 빠르고 안전한 스킹의 길을 제시합니다.
+                        KINECTI는 스포츠를 넘어 중력과 인체의 상호작용을 다루는 과학입니다.<br>
+                        우리는 당신의 동작을 초정밀 데이터로 분석하여,<br>
+                        더 효율적이고 안전한 퍼포먼스의 길을 제시합니다.
                     </p>
                     <div style="display: flex; gap: 20px; justify-content: center;">
                         <a href="javascript:void(0)" onclick="showSection('features')" style="padding: 18px 45px; background: var(--neon-blue); color: #000; text-decoration: none; border-radius: 50px; font-weight: 700; transition: 0.3s; box-shadow: 0 0 15px rgba(0,212,255,0.3);">시작하기</a>
@@ -218,10 +230,10 @@
         <!-- 3. TOOL SECTION -->
         <section id="tool" class="view-section" style="padding: 100px 5%; min-height: 80vh;">
             <div style="text-align: center; max-width: 800px; margin: 0 auto 70px;">
-                <h2 style="font-size: 3rem; margin-bottom: 25px;">AI 분석 시스템</h2>
+                <h2 style="font-size: 3rem; margin-bottom: 25px;">실시간 정밀 분석</h2>
                 <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.8;">
                     준비되셨나요? 카메라를 켜고 자세를 취해보세요. <br>
-                    실시간으로 그려지는 관절 선과 함께 당신의 역학 데이터를 확인할 수 있습니다.
+                    실시간으로 추출되는 관절 데이터와 함께 당신의 역학 정보를 확인할 수 있습니다.
                 </p>
             </div>
             <div class="app-container">
@@ -236,8 +248,8 @@
                         <button class="lang-btn" onclick="setLanguage('en')">EN</button>
                     </div>
                     <div>
-                        <h1 id="ui_title" style="font-size: 1.5rem; color: var(--neon-blue);">알파인 스키</h1>
-                        <p id="ui_subtitle" style="font-size: 0.8rem; color: var(--text-muted);">국가대표 관절 분석 시스템 - v0.2</p>
+                        <h1 id="ui_title" style="font-size: 1.5rem; color: var(--neon-blue);">KINECTI</h1>
+                        <p id="ui_subtitle" style="font-size: 0.8rem; color: var(--text-muted);">정밀 동작 분석 시스템 - v0.2</p>
                     </div>
                     <div class="stats-grid">
                         <div class="stat-box"><span class="label" id="ui_left_knee">왼쪽 무릎 각도</span><div class="value" id="leftKneeAngle">0°</div></div>
@@ -306,11 +318,32 @@
                 </div>
             </div>
         </section>
+
+        <!-- 6. LOGIN SECTION -->
+        <section id="login" class="view-section" style="padding: 150px 20px; min-height: 80vh; display: flex; justify-content: center; align-items: center;">
+            <div class="article-card" style="width: 100%; max-width: 400px; text-align: center; margin: 0 auto; background: rgba(255,255,255,0.03); backdrop-filter: blur(10px);">
+                <h2 style="margin-bottom: 30px; font-family: var(--font-digit); color: var(--neon-blue);">LOGIN</h2>
+                <form id="loginForm" style="display: flex; flex-direction: column; gap: 20px;">
+                    <div style="text-align: left;">
+                        <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; display: block;">Email Address</label>
+                        <input type="email" placeholder="example@email.com" required style="width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: #fff; border-radius: 10px; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--neon-blue)'" onblur="this.style.borderColor='var(--border-glass)'">
+                    </div>
+                    <div style="text-align: left;">
+                        <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; display: block;">Password</label>
+                        <input type="password" placeholder="••••••••" required style="width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: #fff; border-radius: 10px; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--neon-blue)'" onblur="this.style.borderColor='var(--border-glass)'">
+                    </div>
+                    <button type="submit" style="padding: 16px; background: var(--neon-blue); color: #000; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 10px; font-family: var(--font-main);">Sign In</button>
+                </form>
+                <div style="margin-top: 30px; border-top: 1px solid var(--border-glass); padding-top: 20px;">
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">계정이 없으신가요? <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600;">회원가입 하기</a></p>
+                </div>
+            </div>
+        </section>
     </div>
 
     <footer>
-        <p>&copy; 2026 알파인 스키 프로페셔널. 모든 권리 보유.</p>
-        <p>문의: <a href="mailto:contact@alpine-dynamics.pro" style="color: var(--neon-blue);">contact@alpine-dynamics.pro</a></p>
+        <p>&copy; 2026 KINECTI Performance Lab. 모든 권리 보유.</p>
+        <p>문의: <a href="mailto:contact@kinecti-dynamics.pro" style="color: var(--neon-blue);">contact@kinecti-dynamics.pro</a></p>
         <div class="footer-links">
             <a href="javascript:void(0)" onclick="showSection('privacy')">개인정보처리방침</a>
             <a href="javascript:void(0)" onclick="showSection('about')">회사 소개</a>
@@ -342,34 +375,49 @@
                 link.style.color = 'var(--text-main)';
             });
             // 텍스트 매칭으로 활성화 색상 변경 (간단한 구현)
-            event.target.style.color = 'var(--neon-blue)';
+            if (window.event && window.event.target) {
+                window.event.target.style.color = 'var(--neon-blue)';
+            }
         }
+
+        // 로그인 폼 제출 핸들러
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            alert(`${email}님, 환영합니다! 알파인 스키 AI 분석을 시작해보세요.`);
+            showSection('hero'); // 로그인 후 홈으로 이동
+            
+            // 로그인 버튼을 '내 정보'로 변경하는 등의 추가 로직을 여기에 구현할 수 있습니다.
+            const loginBtn = document.querySelector('.login-btn');
+            loginBtn.innerText = '내 정보';
+            loginBtn.onclick = () => alert('마이페이지 기능은 준비 중입니다.');
+        });
 
         // i18n 데이터
         const i18n = {
             ko: {
-                title: "알파인 스키",
-                subtitle: "국가대표 관절 분석 시스템 - v0.2",
+                title: "KINECTI",
+                subtitle: "정밀 동작 분석 시스템 - v0.2",
                 left_knee: "왼쪽 무릎 각도",
                 right_knee: "오른쪽 무릎 각도",
                 injury_risk: "부상 위험도",
-                start_webcam: "AI 분석 시작하기",
+                start_webcam: "분석 시작하기",
                 risk_safe: "안전",
                 risk_warning: "주의",
                 risk_critical: "위험",
-                running: "AI 분석 중..."
+                running: "분석 중..."
             },
             en: {
-                title: "Alpine Ski",
-                subtitle: "Pro Athlete Joint Analysis - v0.2",
+                title: "KINECTI",
+                subtitle: "Precision Motion Analysis - v0.2",
                 left_knee: "Left Knee Angle",
                 right_knee: "Right Knee Angle",
                 injury_risk: "Injury Risk",
-                start_webcam: "Start AI Analysis",
+                start_webcam: "Start Analysis",
                 risk_safe: "Safe",
                 risk_warning: "Warning",
                 risk_critical: "Critical",
-                running: "AI Running..."
+                running: "Running..."
             }
         };
 
