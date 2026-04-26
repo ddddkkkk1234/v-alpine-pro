@@ -60,12 +60,12 @@
             border-bottom: 1px solid var(--border-glass);
             padding: 1.2rem 5%;
             display: flex;
-            justify-content: center; /* 중앙 정렬 */
+            justify-content: center; 
             align-items: center;
-            gap: 50px; /* 로고와 메뉴 사이 적절한 간격 */
+            gap: 50px; 
         }
         nav .logo { font-family: var(--font-digit); color: var(--neon-blue); font-size: 1.2rem; text-decoration: none; }
-        nav .menu { display: flex; gap: 30px; } /* 메뉴 아이템 간격 좁히기 */
+        nav .menu { display: flex; gap: 30px; } 
         nav .menu a { color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
         nav .menu a:hover { color: var(--neon-blue); }
         nav .menu a.login-btn {
@@ -84,7 +84,7 @@
         .content-wrapper { padding-top: 0; }
 
         /* Hero / Tool Section */
-        .view-section { display: none; } /* 기본 숨김 */
+        .view-section { display: none; } 
 
         .hero-section {
             height: 100vh;
@@ -121,10 +121,12 @@
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid var(--border-glass);
-            min-height: 500px;
+            aspect-ratio: 16 / 9;
+            width: 100%;
         }
-        #input_video, #output_canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        #output_canvas { z-index: 10; }
+        #input_video, #output_canvas, .canvas-container { position: absolute !important; top: 0; left: 0; width: 100% !important; height: 100% !important; }
+        #output_canvas { z-index: 5; pointer-events: none; }
+        .canvas-container { z-index: 10; } 
 
         .dashboard {
             background-color: var(--bg-glass);
@@ -132,13 +134,55 @@
             padding: 30px;
             border: 1px solid var(--border-glass);
             display: flex; flex-direction: column; gap: 20px;
+            max-height: 900px;
+            overflow-y: auto;
         }
 
-        /* Blog/Content Style */
-        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
-        h2 { font-size: 2rem; margin-bottom: 2rem; color: var(--neon-blue); text-transform: uppercase; }
-        h3 { font-size: 1.5rem; margin: 1.5rem 0 1rem; color: var(--neon-gold); }
-        p { margin-bottom: 1.5rem; color: var(--text-main); opacity: 0.9; }
+        /* Drawing Tools */
+        .drawing-controls {
+            display: flex;
+            gap: 10px;
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border-glass);
+        }
+        .tool-btn {
+            flex: 1;
+            padding: 10px;
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .tool-btn.active { border-color: var(--neon-blue); color: var(--neon-blue); background: rgba(0, 212, 255, 0.1); }
+        .tool-btn:hover { border-color: var(--neon-blue); }
+
+        /* Storage Section */
+        .storage-section {
+            margin-top: 10px;
+            border-top: 1px solid var(--border-glass);
+            padding-top: 20px;
+        }
+        .storage-title { font-size: 0.9rem; color: var(--neon-gold); margin-bottom: 15px; display: flex; justify-content: space-between; }
+        .data-list { display: flex; flex-direction: column; gap: 10px; }
+        .data-item {
+            background: rgba(255,255,255,0.03);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-glass);
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .data-item:hover { background: rgba(255,255,255,0.08); border-color: var(--neon-blue); }
 
         .article-card {
             background: var(--bg-glass);
@@ -150,20 +194,20 @@
         }
         .article-card:hover { border-color: var(--neon-blue); transform: translateY(-5px); }
 
-        /* Components from original */
-        .lang-selector { display: flex; gap: 8px; margin-bottom: 15px; }
+        .lang-selector { display: flex; gap: 8px; margin-bottom: 5px; }
         .lang-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); color: var(--text-muted); padding: 4px 12px; border-radius: 4px; cursor: pointer; transition: 0.3s; }
         .lang-btn.active { color: var(--neon-blue); border-color: var(--neon-blue); }
-        .stats-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .stat-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
-        .stat-box .value { font-family: var(--font-digit); font-size: 2rem; color: var(--neon-blue); }
-        .risk-assessment { text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 10px; }
-        #riskLevel { font-family: var(--font-digit); font-size: 1.5rem; }
+        .stat-box .value { font-family: var(--font-digit); font-size: 1.5rem; color: var(--neon-blue); }
+        .stat-box .label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 5px; }
+        .risk-assessment { text-align: center; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; }
+        #riskLevel { font-family: var(--font-digit); font-size: 1.2rem; }
         .risk-low { color: var(--neon-green); }
         .risk-mid { color: var(--neon-gold); }
         .risk-high { color: var(--neon-red); }
-        .control-panel button { width: 100%; padding: 15px; background: #111; border: 1px solid var(--neon-blue); color: #fff; border-radius: 10px; cursor: pointer; font-weight: bold; }
-        .control-panel button:hover { background: var(--neon-blue); color: #000; }
+        .control-panel button { width: 100%; padding: 15px; background: #111; border: 1px solid var(--neon-blue); color: #fff; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .control-panel button:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 20px rgba(0, 212, 255, 0.4); }
 
         footer { padding: 60px 5%; border-top: 1px solid var(--border-glass); background: #08080c; text-align: center; color: var(--text-muted); }
         .footer-links { margin-top: 20px; display: flex; justify-content: center; gap: 30px; }
@@ -189,7 +233,6 @@
     </nav>
 
     <div class="content-wrapper">
-        <!-- 1. HOME (HERO) SECTION -->
         <section id="hero" class="view-section">
             <div class="hero-section">
                 <div style="max-width: 900px;">
@@ -207,7 +250,6 @@
             </div>
         </section>
 
-        <!-- 2. FEATURES SECTION -->
         <section id="features" class="view-section" style="padding: 100px 20px; text-align: center; min-height: 80vh;">
             <div class="container">
                 <div style="max-width: 800px; margin: 0 auto 80px;">
@@ -243,7 +285,6 @@
             </div>
         </section>
 
-        <!-- 3. TOOL SECTION -->
         <section id="tool" class="view-section" style="padding: 100px 5%; min-height: 80vh;">
             <div style="text-align: center; max-width: 800px; margin: 0 auto 70px;">
                 <h2 style="font-size: 3rem; margin-bottom: 25px;">실시간 정밀 분석</h2>
@@ -254,8 +295,9 @@
             </div>
             <div class="app-container">
                 <div class="video-box">
-                    <video id="input_video"></video>
+                    <video id="input_video" style="display:none;"></video>
                     <canvas id="output_canvas"></canvas>
+                    <canvas id="drawing_canvas"></canvas>
                 </div>
 
                 <aside class="dashboard">
@@ -267,6 +309,13 @@
                         <h1 id="ui_title" style="font-size: 1.5rem; color: var(--neon-blue);">KINECTI</h1>
                         <p id="ui_subtitle" style="font-size: 0.8rem; color: var(--text-muted);">정밀 동작 분석 시스템 - v0.2</p>
                     </div>
+
+                    <div class="drawing-controls">
+                        <button class="tool-btn" id="btn_draw" onclick="toggleDrawing()">Draw Line</button>
+                        <button class="tool-btn" onclick="clearCanvas()">Clear</button>
+                        <button class="tool-btn" onclick="saveSession()">Save</button>
+                    </div>
+
                     <div class="stats-grid">
                         <div class="stat-box"><span class="label" id="ui_left_knee">왼쪽 무릎 각도</span><div class="value" id="leftKneeAngle">0°</div></div>
                         <div class="stat-box"><span class="label" id="ui_right_knee">오른쪽 무릎 각도</span><div class="value" id="rightKneeAngle">0°</div></div>
@@ -291,21 +340,38 @@
                             <div class="value" id="avgRiskScore" style="font-size: 1.5rem; color: var(--neon-red);">0%</div>
                         </div>
                     </div>
+
                     <div class="control-panel" style="display: flex; flex-direction: column; gap: 10px;">
                         <button id="upload_video_btn" style="background: var(--neon-blue); border: none; color: #000; font-weight: 700;">영상 업로드 분석 시작하기</button>
                         <input type="file" id="video_upload" accept="video/*" style="display: none;">
+                    </div>
+
+                    <div class="storage-section">
+                        <div class="storage-title">
+                            <span>Analysis Data Storage</span>
+                            <span style="font-size: 0.7rem; opacity: 0.5;">Recent</span>
+                        </div>
+                        <div class="data-list">
+                            <div class="data-item">
+                                <span>2024-04-27 훈련_01</span>
+                                <span style="color: var(--neon-blue);">View</span>
+                            </div>
+                            <div class="data-item">
+                                <span>2024-04-26 슬라롬_03</span>
+                                <span style="color: var(--neon-blue);">View</span>
+                            </div>
+                        </div>
                     </div>
                 </aside>
             </div>
         </section>
 
-        <!-- 4. ABOUT (TECHNOLOGY) SECTION -->
         <section id="about" class="view-section" style="padding: 100px 20px; min-height: 80vh;">
             <div class="container">
                 <div style="text-align: center; max-width: 800px; margin: 0 auto 80px;">
                     <h2 style="font-size: 3rem; margin-bottom: 25px; color: var(--neon-blue);">기술 소개</h2>
                     <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.8;">
-                        알파인 스키의 AI 기술은 스포츠 과학과 인공지능의 <br>
+                        KINECTI의 AI 기술은 스포츠 과학과 인공지능의 <br>
                         결합으로 탄생했습니다. 정교한 분석의 핵심 기술을 소개합니다.
                     </p>
                 </div>
@@ -319,14 +385,13 @@
                     <article class="article-card" style="margin-bottom: 0;">
                         <h3 style="color: var(--neon-gold); font-size: 1.6rem; margin-bottom: 20px;">생체역학 기반 알고리즘</h3>
                         <p style="line-height: 1.8; opacity: 0.85;">
-                            스키 주행 시 발생하는 무릎의 외반(Valgus) 현상을 감지합니다. 특히 대퇴골과 경골 사이의 각도를 분석하여, 인체공학적으로 인대가 견딜 수 있는 한계치를 넘어서는 순간을 즉시 포착합니다.
+                            동작 시 발생하는 관절의 비정상적 비틀림이나 정렬 불량을 감지합니다. 특히 인체공학적으로 인대가 견딜 수 있는 한계치를 분석하여 위험 구간을 포착합니다.
                         </p>
                     </article>
                 </div>
             </div>
         </section>
 
-        <!-- 5. PRIVACY POLICY (SHOWN IN FOOTER OR ACCESSIBLE) -->
         <section id="privacy" class="view-section" style="background: #08080c; padding: 100px 5%; border-top: 1px solid var(--border-glass);">
             <div class="container" style="max-width: 900px;">
                 <h2 style="font-size: 2rem; color: var(--text-main); margin-bottom: 40px; text-align: center;">데이터 보안 및 프라이버시 정책</h2>
@@ -338,38 +403,26 @@
                                 <span style="color: var(--neon-green); font-weight: bold;">[보안]</span> 
                                 <span><strong>완전 로컬 처리:</strong> MediaPipe AI 연산은 사용자의 웹 브라우저 내 WebGL 가속을 통해 직접 수행됩니다. 영상 정보가 클라우드 서버에 도달하는 일은 기술적으로 불가능합니다.</span>
                             </li>
-                            <li style="margin-bottom: 20px; display: flex; align-items: flex-start; gap: 15px;">
-                                <span style="color: var(--neon-green); font-weight: bold;">[투명]</span> 
-                                <span><strong>비저장 원칙:</strong> 분석을 위해 입력된 각 프레임은 각도 계산 직후 메모리에서 즉시 소거됩니다. 분석 결과를 저장하는 로그 파일조차 생성하지 않습니다.</span>
-                            </li>
-                            <li style="margin-bottom: 0; display: flex; align-items: flex-start; gap: 15px;">
-                                <span style="color: var(--neon-green); font-weight: bold;">[권리]</span> 
-                                <span><strong>접근 제어:</strong> 카메라는 사용자가 '분석 시작' 버튼을 명시적으로 클릭한 경우에만 활성화되며, 탭을 닫거나 중단 시 즉시 하드웨어 연결이 종료됩니다.</span>
-                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 6. LOGIN SECTION -->
         <section id="login" class="view-section" style="padding: 150px 20px; min-height: 80vh; display: flex; justify-content: center; align-items: center;">
             <div class="article-card" style="width: 100%; max-width: 400px; text-align: center; margin: 0 auto; background: rgba(255,255,255,0.03); backdrop-filter: blur(10px);">
                 <h2 style="margin-bottom: 30px; font-family: var(--font-digit); color: var(--neon-blue);">LOGIN</h2>
                 <form id="loginForm" style="display: flex; flex-direction: column; gap: 20px;">
                     <div style="text-align: left;">
                         <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; display: block;">Email Address</label>
-                        <input type="email" placeholder="example@email.com" required style="width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: #fff; border-radius: 10px; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--neon-blue)'" onblur="this.style.borderColor='var(--border-glass)'">
+                        <input type="email" placeholder="example@email.com" required style="width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: #fff; border-radius: 10px; outline: none;">
                     </div>
                     <div style="text-align: left;">
                         <label style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; display: block;">Password</label>
-                        <input type="password" placeholder="••••••••" required style="width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: #fff; border-radius: 10px; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='var(--neon-blue)'" onblur="this.style.borderColor='var(--border-glass)'">
+                        <input type="password" placeholder="••••••••" required style="width: 100%; padding: 14px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); color: #fff; border-radius: 10px; outline: none;">
                     </div>
-                    <button type="submit" style="padding: 16px; background: var(--neon-blue); color: #000; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 10px; font-family: var(--font-main);">Sign In</button>
+                    <button type="submit" style="padding: 16px; background: var(--neon-blue); color: #000; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-family: var(--font-main);">Sign In</button>
                 </form>
-                <div style="margin-top: 30px; border-top: 1px solid var(--border-glass); padding-top: 20px;">
-                    <p style="font-size: 0.9rem; color: var(--text-muted);">계정이 없으신가요? <a href="#" style="color: var(--neon-blue); text-decoration: none; font-weight: 600;">회원가입 하기</a></p>
-                </div>
             </div>
         </section>
     </div>
@@ -387,46 +440,29 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
 
     <script>
-        // 화면 전환 함수
         function showSection(sectionId) {
-            // 모든 섹션 숨기기
             document.querySelectorAll('.view-section').forEach(section => {
                 section.style.display = 'none';
             });
-            // 선택된 섹션만 보여주기
             const activeSection = document.getElementById(sectionId);
             if (activeSection) {
                 activeSection.style.display = 'block';
-                // 상단으로 스크롤 초기화
                 window.scrollTo(0, 0);
-            }
-            
-            // 메뉴 활성화 상태 표시 (선택사항)
-            document.querySelectorAll('.menu a').forEach(link => {
-                link.style.color = 'var(--text-main)';
-            });
-            // 텍스트 매칭으로 활성화 색상 변경 (간단한 구현)
-            if (window.event && window.event.target) {
-                window.event.target.style.color = 'var(--neon-blue)';
             }
         }
 
-        // 로그인 폼 제출 핸들러
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = e.target.querySelector('input[type="email"]').value;
-            alert(`${email}님, 환영합니다! 알파인 스키 AI 분석을 시작해보세요.`);
-            showSection('hero'); // 로그인 후 홈으로 이동
-            
-            // 로그인 버튼을 '내 정보'로 변경하는 등의 추가 로직을 여기에 구현할 수 있습니다.
+            alert(`${email}님, 환영합니다! 분석을 시작해보세요.`);
+            showSection('hero');
             const loginBtn = document.querySelector('.login-btn');
             loginBtn.innerText = '내 정보';
-            loginBtn.onclick = () => alert('마이페이지 기능은 준비 중입니다.');
         });
 
-        // i18n 데이터
         const i18n = {
             ko: {
                 title: "KINECTI",
@@ -434,12 +470,10 @@
                 left_knee: "왼쪽 무릎 각도",
                 right_knee: "오른쪽 무릎 각도",
                 injury_risk: "부상 위험도",
-                start_webcam: "실시간 웹캠 분석",
                 upload_video: "영상 업로드 분석",
                 risk_safe: "안전",
                 risk_warning: "주의",
-                risk_critical: "위험",
-                running: "분석 중..."
+                risk_critical: "위험"
             },
             en: {
                 title: "KINECTI",
@@ -447,16 +481,16 @@
                 left_knee: "Left Knee Angle",
                 right_knee: "Right Knee Angle",
                 injury_risk: "Injury Risk",
-                start_webcam: "Live Webcam",
                 upload_video: "Upload Video",
                 risk_safe: "Safe",
                 risk_warning: "Warning",
-                risk_critical: "Critical",
-                running: "Running..."
+                risk_critical: "Critical"
             }
         };
 
         let currentLang = 'ko';
+        let isDrawingMode = false;
+        let fabricCanvas;
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -465,20 +499,35 @@
             document.getElementById('ui_left_knee').innerText = i18n[lang].left_knee;
             document.getElementById('ui_right_knee').innerText = i18n[lang].right_knee;
             document.getElementById('ui_injury_risk').innerText = i18n[lang].injury_risk;
-            
-            document.getElementById('start_webcam').innerText = i18n[lang].start_webcam;
             document.getElementById('upload_video_btn').innerText = i18n[lang].upload_video;
-            
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
-            });
-
-            // 업데이트된 위험 수준 텍스트 즉시 반영 (분석 중인 경우)
-            const riskLevelText = document.getElementById('riskLevel');
-            if (riskLevelText.innerText === i18n[lang === 'ko' ? 'en' : 'ko'].risk_safe) riskLevelText.innerText = i18n[lang].risk_safe;
-            if (riskLevelText.innerText === i18n[lang === 'ko' ? 'en' : 'ko'].risk_warning) riskLevelText.innerText = i18n[lang].risk_warning;
-            if (riskLevelText.innerText === i18n[lang === 'ko' ? 'en' : 'ko'].risk_critical) riskLevelText.innerText = i18n[lang].risk_critical;
         }
+
+        function initFabric() {
+            fabricCanvas = new fabric.Canvas('drawing_canvas', { isDrawingMode: false });
+            resizeCanvas();
+        }
+
+        function resizeCanvas() {
+            const container = document.querySelector('.video-box');
+            if (fabricCanvas && container) {
+                fabricCanvas.setWidth(container.clientWidth);
+                fabricCanvas.setHeight(container.clientHeight);
+                fabricCanvas.renderAll();
+            }
+        }
+
+        function toggleDrawing() {
+            isDrawingMode = !isDrawingMode;
+            fabricCanvas.isDrawingMode = isDrawingMode;
+            fabricCanvas.freeDrawingBrush.color = '#ffd700';
+            fabricCanvas.freeDrawingBrush.width = 3;
+            document.getElementById('btn_draw').innerText = isDrawingMode ? "Drawing..." : "Draw Line";
+        }
+
+        function clearCanvas() { fabricCanvas.clear(); }
+        function saveSession() { alert("저장되었습니다."); }
+
+        window.addEventListener('resize', resizeCanvas);
 
         const videoElement = document.getElementById('input_video');
         const canvasElement = document.getElementById('output_canvas');
@@ -489,7 +538,6 @@
         const rightShoulderAngleText = document.getElementById('rightShoulderAngle');
         const riskLevelText = document.getElementById('riskLevel');
 
-        // 평균 데이터 관련 변수
         const avgElements = {
             lka: document.getElementById('avgLKA'),
             rka: document.getElementById('avgRKA'),
@@ -497,25 +545,7 @@
             rsa: document.getElementById('avgRSA'),
             risk: document.getElementById('avgRiskScore')
         };
-        let analysisMetrics = {
-            count: 0,
-            sumLKA: 0, sumRKA: 0,
-            sumLSA: 0, sumRSA: 0,
-            sumRisk: 0
-        };
-
-        function resetMetrics() {
-            analysisMetrics = { count: 0, sumLKA: 0, sumRKA: 0, sumLSA: 0, sumRSA: 0, sumRisk: 0 };
-            if (avgElements.lka) {
-                avgElements.lka.innerText = '0°';
-                avgElements.rka.innerText = '0°';
-                avgElements.lsa.innerText = '0°';
-                avgElements.rsa.innerText = '0°';
-                avgElements.risk.innerText = '0%';
-            }
-        }
-
-        let isVideoMode = true; // 동영상 분석 전용 모드
+        let metrics = { count: 0, sumLKA: 0, sumRKA: 0, sumLSA: 0, sumRSA: 0, sumRisk: 0 };
 
         const pose = new Pose({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`});
         pose.setOptions({ modelComplexity: 1, smoothLandmarks: true, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
@@ -536,91 +566,53 @@
             drawLandmarks(canvasCtx, results.poseLandmarks, {color: '#ffffff', lineWidth: 1, radius: 3});
 
             const lm = results.poseLandmarks;
-            
-            // 무릎 각도 계산
             const lKA = calculateAngle(lm[23], lm[25], lm[27]);
             const rKA = calculateAngle(lm[24], lm[26], lm[28]);
-            
-            // 어깨 각도 계산
             const lSA = calculateAngle(lm[23], lm[11], lm[13]);
             const rSA = calculateAngle(lm[24], lm[12], lm[14]);
-            
+
             leftKneeAngleText.innerText = `${lKA}°`;
             rightKneeAngleText.innerText = `${rKA}°`;
             leftShoulderAngleText.innerText = `${lSA}°`;
             rightShoulderAngleText.innerText = `${rSA}°`;
 
-            let currentRiskScore = 0;
-            if (lKA < 100 || rKA < 100) {
-                riskLevelText.innerText = i18n[currentLang].risk_critical;
-                riskLevelText.className = "risk-high";
-                currentRiskScore = 100;
-            } else if (lKA < 120 || rKA < 120) {
-                riskLevelText.innerText = i18n[currentLang].risk_warning;
-                riskLevelText.className = "risk-mid";
-                currentRiskScore = 50;
-            } else {
-                riskLevelText.innerText = i18n[currentLang].risk_safe;
-                riskLevelText.className = "risk-low";
-                currentRiskScore = 0;
-            }
+            let risk = (lKA < 100 || rKA < 100) ? 100 : (lKA < 120 || rKA < 120) ? 50 : 0;
+            riskLevelText.innerText = risk === 100 ? i18n[currentLang].risk_critical : risk === 50 ? i18n[currentLang].risk_warning : i18n[currentLang].risk_safe;
+            riskLevelText.className = risk === 100 ? "risk-high" : risk === 50 ? "risk-mid" : "risk-low";
 
-            // 평균 데이터 업데이트
-            analysisMetrics.count++;
-            analysisMetrics.sumLKA += lKA;
-            analysisMetrics.sumRKA += rKA;
-            analysisMetrics.sumLSA += lSA;
-            analysisMetrics.sumRSA += rSA;
-            analysisMetrics.sumRisk += currentRiskScore;
-
-            const count = analysisMetrics.count;
+            metrics.count++; metrics.sumLKA += lKA; metrics.sumRKA += rKA; metrics.sumLSA += lSA; metrics.sumRSA += rSA; metrics.sumRisk += risk;
             if (avgElements.lka) {
-                avgElements.lka.innerText = `${Math.round(analysisMetrics.sumLKA / count)}°`;
-                avgElements.rka.innerText = `${Math.round(analysisMetrics.sumRKA / count)}°`;
-                avgElements.lsa.innerText = `${Math.round(analysisMetrics.sumLSA / count)}°`;
-                avgElements.rsa.innerText = `${Math.round(analysisMetrics.sumRSA / count)}°`;
-                avgElements.risk.innerText = `${Math.round(analysisMetrics.sumRisk / count)}%`;
+                avgElements.lka.innerText = `${Math.round(metrics.sumLKA/metrics.count)}°`;
+                avgElements.rka.innerText = `${Math.round(metrics.sumRKA/metrics.count)}°`;
+                avgElements.lsa.innerText = `${Math.round(metrics.sumLSA/metrics.count)}°`;
+                avgElements.rsa.innerText = `${Math.round(metrics.sumRSA/metrics.count)}°`;
+                avgElements.risk.innerText = `${Math.round(metrics.sumRisk/metrics.count)}%`;
             }
-
             canvasCtx.restore();
         });
 
-        async function processVideoFrame() {
-            if (isVideoMode && !videoElement.paused && !videoElement.ended) {
+        async function processFrame() {
+            if (!videoElement.paused && !videoElement.ended) {
                 canvasElement.width = videoElement.videoWidth;
                 canvasElement.height = videoElement.videoHeight;
                 await pose.send({image: videoElement});
-                requestAnimationFrame(processVideoFrame);
+                requestAnimationFrame(processFrame);
             }
         }
 
-        document.getElementById('upload_video_btn').addEventListener('click', () => {
-            document.getElementById('video_upload').click();
-        });
-
+        document.getElementById('upload_video_btn').addEventListener('click', () => document.getElementById('video_upload').click());
         document.getElementById('video_upload').addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
-                resetMetrics();
-                const url = URL.createObjectURL(file);
-                videoElement.src = url;
-                videoElement.controls = true;
+                videoElement.src = URL.createObjectURL(file);
                 videoElement.play();
-                videoElement.onplay = () => {
-                    processVideoFrame();
-                };
+                videoElement.onplay = processFrame;
             }
         });
 
-        // 초기 언어 설정
-        setLanguage('ko');
-        
-        // 초기 섹션 설정 (홈 화면)
         showSection('hero');
         setLanguage('ko');
-        
-        // 초기 섹션 설정 (홈 화면)
-        showSection('hero');
+        initFabric();
     </script>
 </body>
 </html>
