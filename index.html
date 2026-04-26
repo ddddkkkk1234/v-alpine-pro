@@ -18,8 +18,8 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KINECTI :: CYBER-AI JOINT ANALYSIS</title>
-    <meta name="description" content="Next-gen AI sports science platform. Precision joint tracking with cyberpunk diagnostics.">
+    <title>KINECTI :: 사이버_뉴럴_역학_분석</title>
+    <meta name="description" content="차세대 AI 스포츠 사이언스 플랫폼. 하이테크 진단 시스템을 통한 정밀 관절 추적.">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -100,11 +100,11 @@
             text-align: center; position: relative;
         }
         .hero-section h1 {
-            font-family: var(--font-digit); font-size: 4rem; color: #fff; line-height: 1;
+            font-family: var(--font-digit); font-size: 5rem; color: #fff; line-height: 1;
             text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
             margin-bottom: 20px; text-transform: uppercase;
         }
-        .hero-section p { font-family: var(--font-mono); font-size: 1.2rem; color: var(--neon-blue); max-width: 700px; margin-bottom: 40px; }
+        .hero-section p { font-family: var(--font-mono); font-size: 1.1rem; color: var(--neon-blue); max-width: 800px; margin-bottom: 40px; line-height: 1.8; }
 
         /* 비디오 박스 종횡비 고정 및 찌그러짐 방지 */
         .app-container {
@@ -121,7 +121,7 @@
         #input_video, #output_canvas, .canvas-container { 
             position: absolute !important; top: 0; left: 0; 
             width: 100% !important; height: 100% !important; 
-            object-fit: cover !important; /* 영상 비율 유지하며 꽉 채우기 */
+            object-fit: cover !important;
         }
         #output_canvas { z-index: 5; pointer-events: none; }
         .canvas-container { z-index: 10; } 
@@ -142,19 +142,19 @@
         .terminal-panel::before { content: ">> SYSTEM_DIAGNOSTICS"; position: absolute; top: -10px; left: 10px; background: var(--bg-deep); font-size: 0.6rem; color: var(--neon-blue); padding: 0 5px; }
 
         .stat-box { background: rgba(0, 243, 255, 0.05); border: 1px solid rgba(0, 243, 255, 0.1); padding: 15px; position: relative; }
-        .stat-box .label { font-size: 0.6rem; color: var(--neon-blue); text-transform: uppercase; letter-spacing: 1px; }
-        .stat-box .value { font-family: var(--font-digit); font-size: 2rem; color: #fff; text-shadow: 0 0 10px var(--neon-blue); }
+        .stat-box .label { font-size: 0.7rem; color: var(--neon-blue); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+        .stat-box .value { font-family: var(--font-digit); font-size: 2.2rem; color: #fff; text-shadow: 0 0 10px var(--neon-blue); }
 
         .btn-cyber {
             background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue);
-            padding: 12px; font-family: var(--font-digit); font-weight: 700; text-transform: uppercase;
+            padding: 14px; font-family: var(--font-digit); font-weight: 700; text-transform: uppercase;
             letter-spacing: 2px; cursor: pointer; transition: 0.3s; overflow: hidden; position: relative; width: 100%;
         }
         .btn-cyber:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 20px var(--neon-blue); }
 
-        footer { padding: 40px 5%; border-top: 1px solid var(--neon-blue); background: #000; text-align: center; font-family: var(--font-mono); color: var(--neon-blue); }
+        footer { padding: 40px 5%; border-top: 1px solid var(--neon-blue); background: #000; text-align: center; font-family: var(--font-mono); color: var(--neon-blue); font-size: 0.8rem; }
 
-        @media (max-width: 1000px) { .app-container { grid-template-columns: 1fr; } }
+        @media (max-width: 1000px) { .app-container { grid-template-columns: 1fr; } .hero-section h1 { font-size: 3rem; } }
     </style>
 </head>
 <body>
@@ -162,11 +162,11 @@
     <nav>
         <a href="javascript:void(0)" onclick="showSection('hero')" class="logo">KINECTI_OS</a>
         <div class="menu">
-            <a href="javascript:void(0)" onclick="showSection('hero')">HOME</a>
-            <a href="javascript:void(0)" onclick="showSection('tool')">ANALYZE</a>
-            <a href="javascript:void(0)" onclick="showSection('about')">TECH</a>
-            <a href="javascript:void(0)" onclick="showSection('privacy')">PRIVACY</a>
-            <a href="javascript:void(0)" onclick="showSection('login')" class="login-btn">CONNECT</a>
+            <a href="javascript:void(0)" onclick="showSection('hero')">메인_홈</a>
+            <a href="javascript:void(0)" onclick="showSection('tool')">역학_분석</a>
+            <a href="javascript:void(0)" onclick="showSection('about')">기술_개요</a>
+            <a href="javascript:void(0)" onclick="showSection('privacy')">보안_정책</a>
+            <a href="javascript:void(0)" onclick="showSection('login')" class="login-btn">시스템_접속</a>
         </div>
     </nav>
 
@@ -174,9 +174,9 @@
         <section id="hero" class="view-section">
             <div class="hero-section">
                 <h1 style="animation: glitch 0.3s infinite;">KINECTI</h1>
-                <p>[INITIALIZING_NEURAL_TRACKING_INTERFACE...]<br>AI-POWERED KINETIC ANALYSIS SYSTEM FOR ELITE PERFORMANCE.</p>
+                <p>[뉴럴_트래킹_인터페이스_초기화_중...]<br>최상의 퍼포먼스를 위한 AI 기반 실시간 운동 역학 분석 시스템.</p>
                 <div style="display: flex; gap: 20px;">
-                    <button class="btn-cyber" onclick="showSection('tool')" style="width:auto; padding: 15px 40px;">START_INTERFACE</button>
+                    <button class="btn-cyber" onclick="showSection('tool')" style="width:auto; padding: 15px 40px;">분석_인터페이스_가동</button>
                 </div>
             </div>
         </section>
@@ -194,37 +194,53 @@
                 <aside class="dashboard">
                     <div class="terminal-panel">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                            <span style="color: var(--neon-pink);">[v0.2_STABLE]</span>
-                            <button onclick="setLanguage(currentLang === 'ko' ? 'en' : 'ko')" style="background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue); font-size: 0.6rem; cursor: pointer;">LANG_SWAP</button>
+                            <span style="color: var(--neon-pink);">[v0.2_안정_버전]</span>
+                            <div style="display: flex; gap: 10px;">
+                                <button onclick="setLanguage('ko')" style="background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue); font-size: 0.6rem; cursor: pointer; padding: 2px 5px;">KO</button>
+                                <button onclick="setLanguage('en')" style="background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue); font-size: 0.6rem; cursor: pointer; padding: 2px 5px;">EN</button>
+                            </div>
                         </div>
-                        <h2 id="ui_title" style="font-family: var(--font-digit); color: #fff;">CORE_ANALYTICS</h2>
+                        <h2 id="ui_title" style="font-family: var(--font-digit); color: #fff; letter-spacing: 2px;">코어_역학_분석</h2>
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <button class="btn-cyber" id="btn_draw" onclick="toggleDrawing()" style="font-size: 0.6rem;">LASER_PEN</button>
-                        <button class="btn-cyber" onclick="clearCanvas()" style="font-size: 0.6rem;">WIPE_DATA</button>
+                        <button class="btn-cyber" id="btn_draw" onclick="toggleDrawing()" style="font-size: 0.7rem;">레이저_펜</button>
+                        <button class="btn-cyber" onclick="clearCanvas()" style="font-size: 0.7rem;">데이터_소거</button>
                     </div>
 
                     <div class="stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <div class="stat-box"><span class="label" id="ui_left_knee">L_KNEE</span><div class="value" id="leftKneeAngle">0°</div></div>
-                        <div class="stat-box"><span class="label" id="ui_right_knee">R_KNEE</span><div class="value" id="rightKneeAngle">0°</div></div>
-                        <div class="stat-box"><span class="label" id="ui_left_shoulder">L_SHOULDER</span><div class="value" id="leftShoulderAngle">0°</div></div>
-                        <div class="stat-box"><span class="label" id="ui_right_shoulder">R_SHOULDER</span><div class="value" id="rightShoulderAngle">0°</div></div>
+                        <div class="stat-box"><span class="label" id="ui_left_knee">L_무릎_각도</span><div class="value" id="leftKneeAngle">0°</div></div>
+                        <div class="stat-box"><span class="label" id="ui_right_knee">R_무릎_각도</span><div class="value" id="rightKneeAngle">0°</div></div>
+                        <div class="stat-box"><span class="label" id="ui_left_shoulder">L_어깨_각도</span><div class="value" id="leftShoulderAngle">0°</div></div>
+                        <div class="stat-box"><span class="label" id="ui_right_shoulder">R_어깨_각도</span><div class="value" id="rightShoulderAngle">0°</div></div>
                     </div>
 
                     <div class="stat-box" style="text-align: center;">
-                        <span class="label" id="ui_injury_risk">THREAT_LEVEL</span>
-                        <div id="riskLevel" class="value risk-low">SAFE</div>
+                        <span class="label" id="ui_injury_risk">위험_수위_감지</span>
+                        <div id="riskLevel" class="value risk-low">안전</div>
                     </div>
 
                     <div class="control-panel">
-                        <button class="btn-cyber" id="upload_video_btn">UPLOAD_DATA_STREAM</button>
+                        <button class="btn-cyber" id="upload_video_btn">데이터_스트림_업로드</button>
                         <input type="file" id="video_upload" accept="video/*" style="display: none;">
                     </div>
                 </aside>
             </div>
         </section>
+
+        <section id="about" class="view-section" style="padding: 100px 5%;">
+            <div class="terminal-panel" style="max-width: 1000px; margin: 0 auto; line-height: 2;">
+                <h2 style="color: var(--neon-blue); margin-bottom: 30px; font-family: var(--font-digit);">[시스템_기술_개요]</h2>
+                <p>> MEDIAPIPE_POSE: 전신 33개 관절의 위치를 실시간으로 추적하는 구글 기반 뉴럴 인터페이스.</p>
+                <p>> BIOMECHANIC_ALGO: 관절의 임계 각도를 분석하여 부상 위험을 사전에 포착하는 생체역학 알고리즘.</p>
+                <p>> LOCAL_STREAM_PROCESS: 사용자의 영상 데이터는 서버에 저장되지 않고 브라우저 내에서 즉시 휘발 처리됨.</p>
+            </div>
+        </section>
     </div>
+
+    <footer>
+        <p>[ KINECTI_NEURAL_LAB // 2026 // 모든_권리_보유 ]</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
@@ -240,8 +256,8 @@
         }
 
         const i18n = {
-            ko: { title: "코어_분석", left_knee: "L_무릎", right_knee: "R_무릎", left_shoulder: "L_어깨", right_shoulder: "R_어깨", injury_risk: "위험_레벨", upload_video: "데이터_스트림_업로드", risk_safe: "안전", risk_warning: "주의", risk_critical: "위험" },
-            en: { title: "CORE_ANALYTICS", left_knee: "L_KNEE", right_knee: "R_KNEE", left_shoulder: "L_SHOULDER", right_shoulder: "R_SHOULDER", injury_risk: "THREAT_LEVEL", upload_video: "UPLOAD_DATA_STREAM", risk_safe: "SAFE", risk_warning: "WARNING", risk_critical: "CRITICAL" }
+            ko: { title: "코어_역학_분석", left_knee: "L_무릎_각도", right_knee: "R_무릎_각도", left_shoulder: "L_어깨_각도", right_shoulder: "R_어깨_각도", injury_risk: "위험_수위_감지", upload_video: "데이터_스트림_업로드", risk_safe: "안전", risk_warning: "주의", risk_critical: "위험" },
+            en: { title: "CORE_ANALYTICS", left_knee: "L_KNEE_ANG", right_knee: "R_KNEE_ANG", left_shoulder: "L_SHLDR_ANG", right_shoulder: "R_SHLDR_ANG", injury_risk: "THREAT_LEVEL", upload_video: "UPLOAD_DATA_STREAM", risk_safe: "SAFE", risk_warning: "WARNING", risk_critical: "CRITICAL" }
         };
 
         let currentLang = 'ko';
@@ -256,6 +272,12 @@
             document.getElementById('ui_right_shoulder').innerText = i18n[lang].right_shoulder;
             document.getElementById('ui_injury_risk').innerText = i18n[lang].injury_risk;
             document.getElementById('upload_video_btn').innerText = i18n[lang].upload_video;
+            
+            // 위험 수위 텍스트도 즉시 업데이트
+            const rl = document.getElementById('riskLevel');
+            if (rl.classList.contains('risk-low')) rl.innerText = i18n[lang].risk_safe;
+            else if (rl.classList.contains('risk-mid')) rl.innerText = i18n[lang].risk_warning;
+            else if (rl.classList.contains('risk-high')) rl.innerText = i18n[lang].risk_critical;
         }
 
         function initFabric() {
@@ -277,7 +299,8 @@
 
         function toggleDrawing() {
             fabricCanvas.isDrawingMode = !fabricCanvas.isDrawingMode;
-            document.getElementById('btn_draw').innerText = fabricCanvas.isDrawingMode ? "ACTIVE" : "LASER_PEN";
+            document.getElementById('btn_draw').innerText = fabricCanvas.isDrawingMode ? "분석_중" : "레이저_펜";
+            document.getElementById('btn_draw').style.borderColor = fabricCanvas.isDrawingMode ? 'var(--neon-pink)' : 'var(--neon-blue)';
         }
 
         function clearCanvas() { fabricCanvas.clear(); }
