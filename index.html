@@ -61,7 +61,7 @@
             content: "";
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 255, 0, 0.03));
             background-size: 100% 4px, 3px 100%;
             pointer-events: none;
             z-index: 2000;
@@ -94,7 +94,6 @@
             background: rgba(0, 243, 255, 0.1);
         }
 
-        /* Hero Section */
         .view-section { display: none; padding-top: 80px; }
         .hero-section {
             height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -105,27 +104,29 @@
             text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
             margin-bottom: 20px; text-transform: uppercase;
         }
-        .hero-section p {
-            font-family: var(--font-mono); font-size: 1.2rem; color: var(--neon-blue);
-            max-width: 700px; margin-bottom: 40px;
-        }
+        .hero-section p { font-family: var(--font-mono); font-size: 1.2rem; color: var(--neon-blue); max-width: 700px; margin-bottom: 40px; }
 
-        /* Tool Section - Cyber Deck */
+        /* 비디오 박스 종횡비 고정 및 찌그러짐 방지 */
         .app-container {
             display: grid; grid-template-columns: 1.8fr 1fr; gap: 30px;
-            width: 100%; max-width: 1600px; margin: 0 auto;
+            width: 100%; max-width: 1600px; margin: 0 auto; padding: 20px;
         }
         .video-box {
             position: relative; background: #000; border: 2px solid var(--neon-blue);
             box-shadow: 0 0 25px rgba(0, 243, 255, 0.3);
-            border-radius: 5px; overflow: hidden; aspect-ratio: 16/9;
+            border-radius: 5px; overflow: hidden; aspect-ratio: 16 / 9;
+            width: 100%;
         }
         
-        /* Crosshairs */
-        .crosshair {
-            position: absolute; width: 40px; height: 40px; border: 2px solid var(--neon-blue);
-            z-index: 15; pointer-events: none;
+        #input_video, #output_canvas, .canvas-container { 
+            position: absolute !important; top: 0; left: 0; 
+            width: 100% !important; height: 100% !important; 
+            object-fit: cover !important; /* 영상 비율 유지하며 꽉 채우기 */
         }
+        #output_canvas { z-index: 5; pointer-events: none; }
+        .canvas-container { z-index: 10; } 
+
+        .crosshair { position: absolute; width: 40px; height: 40px; border: 2px solid var(--neon-blue); z-index: 15; pointer-events: none; }
         .ch-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
         .ch-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
         .ch-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
@@ -137,59 +138,21 @@
             backdrop-filter: blur(10px); height: fit-content;
         }
 
-        .terminal-panel {
-            background: rgba(0,0,0,0.5); border-left: 3px solid var(--neon-blue);
-            padding: 15px; font-family: var(--font-mono); position: relative;
-        }
-        .terminal-panel::before {
-            content: ">> SYSTEM_DIAGNOSTICS"; position: absolute; top: -10px; left: 10px;
-            background: var(--bg-deep); font-size: 0.6rem; color: var(--neon-blue); padding: 0 5px;
-        }
+        .terminal-panel { background: rgba(0,0,0,0.5); border-left: 3px solid var(--neon-blue); padding: 15px; font-family: var(--font-mono); position: relative; }
+        .terminal-panel::before { content: ">> SYSTEM_DIAGNOSTICS"; position: absolute; top: -10px; left: 10px; background: var(--bg-deep); font-size: 0.6rem; color: var(--neon-blue); padding: 0 5px; }
 
-        .stat-box {
-            background: rgba(0, 243, 255, 0.05); border: 1px solid rgba(0, 243, 255, 0.1);
-            padding: 15px; position: relative;
-        }
+        .stat-box { background: rgba(0, 243, 255, 0.05); border: 1px solid rgba(0, 243, 255, 0.1); padding: 15px; position: relative; }
         .stat-box .label { font-size: 0.6rem; color: var(--neon-blue); text-transform: uppercase; letter-spacing: 1px; }
-        .stat-box .value { 
-            font-family: var(--font-digit); font-size: 2rem; color: #fff;
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .glitch-text:hover { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; }
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); color: var(--neon-pink); }
-            40% { transform: translate(-2px, -2px); color: var(--neon-blue); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
-        }
+        .stat-box .value { font-family: var(--font-digit); font-size: 2rem; color: #fff; text-shadow: 0 0 10px var(--neon-blue); }
 
         .btn-cyber {
             background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue);
             padding: 12px; font-family: var(--font-digit); font-weight: 700; text-transform: uppercase;
-            letter-spacing: 2px; cursor: pointer; transition: 0.3s; overflow: hidden; position: relative;
+            letter-spacing: 2px; cursor: pointer; transition: 0.3s; overflow: hidden; position: relative; width: 100%;
         }
-        .btn-cyber::after {
-            content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.4), transparent);
-            transition: 0.5s;
-        }
-        .btn-cyber:hover::after { left: 100%; }
         .btn-cyber:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 20px var(--neon-blue); }
 
-        .drawing-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        
-        /* Risk Levels */
-        .risk-high { color: var(--neon-red) !important; text-shadow: 0 0 15px var(--neon-red) !important; }
-        .risk-mid { color: var(--neon-gold) !important; text-shadow: 0 0 15px var(--neon-gold) !important; }
-        .risk-low { color: var(--neon-green) !important; text-shadow: 0 0 15px var(--neon-green) !important; }
-
-        footer { 
-            padding: 40px 5%; border-top: 1px solid var(--neon-blue); background: #000;
-            text-align: center; font-family: var(--font-mono); color: var(--neon-blue);
-        }
+        footer { padding: 40px 5%; border-top: 1px solid var(--neon-blue); background: #000; text-align: center; font-family: var(--font-mono); color: var(--neon-blue); }
 
         @media (max-width: 1000px) { .app-container { grid-template-columns: 1fr; } }
     </style>
@@ -208,19 +171,16 @@
     </nav>
 
     <div class="content-wrapper">
-        <!-- HERO -->
         <section id="hero" class="view-section">
             <div class="hero-section">
-                <h1 class="glitch-text">KINECTI</h1>
+                <h1 style="animation: glitch 0.3s infinite;">KINECTI</h1>
                 <p>[INITIALIZING_NEURAL_TRACKING_INTERFACE...]<br>AI-POWERED KINETIC ANALYSIS SYSTEM FOR ELITE PERFORMANCE.</p>
                 <div style="display: flex; gap: 20px;">
-                    <button class="btn-cyber" onclick="showSection('tool')">START_INTERFACE</button>
-                    <button class="btn-cyber" onclick="showSection('about')" style="border-color: var(--neon-pink); color: var(--neon-pink);">DECRYPT_TECH</button>
+                    <button class="btn-cyber" onclick="showSection('tool')" style="width:auto; padding: 15px 40px;">START_INTERFACE</button>
                 </div>
             </div>
         </section>
 
-        <!-- TOOL -->
         <section id="tool" class="view-section" style="padding: 100px 5%;">
             <div class="app-container">
                 <div class="video-box">
@@ -235,15 +195,12 @@
                     <div class="terminal-panel">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
                             <span style="color: var(--neon-pink);">[v0.2_STABLE]</span>
-                            <div class="lang-selector" style="display: flex; gap: 5px;">
-                                <button onclick="setLanguage('ko')" style="background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue); font-size: 0.6rem; cursor: pointer;">KR</button>
-                                <button onclick="setLanguage('en')" style="background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue); font-size: 0.6rem; cursor: pointer;">EN</button>
-                            </div>
+                            <button onclick="setLanguage(currentLang === 'ko' ? 'en' : 'ko')" style="background: none; border: 1px solid var(--neon-blue); color: var(--neon-blue); font-size: 0.6rem; cursor: pointer;">LANG_SWAP</button>
                         </div>
                         <h2 id="ui_title" style="font-family: var(--font-digit); color: #fff;">CORE_ANALYTICS</h2>
                     </div>
 
-                    <div class="drawing-controls">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <button class="btn-cyber" id="btn_draw" onclick="toggleDrawing()" style="font-size: 0.6rem;">LASER_PEN</button>
                         <button class="btn-cyber" onclick="clearCanvas()" style="font-size: 0.6rem;">WIPE_DATA</button>
                     </div>
@@ -260,40 +217,14 @@
                         <div id="riskLevel" class="value risk-low">SAFE</div>
                     </div>
 
-                    <div class="terminal-panel">
-                        <span class="label">SESSION_AVERAGES</span>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 0.7rem; color: #aaa; margin-top: 10px;">
-                            <div>L_KNEE: <span id="avgLKA" style="color: var(--neon-blue);">0°</span></div>
-                            <div>R_KNEE: <span id="avgRKA" style="color: var(--neon-blue);">0°</span></div>
-                            <div>L_SHOULDER: <span id="avgLSA" style="color: var(--neon-blue);">0°</span></div>
-                            <div>R_SHOULDER: <span id="avgRSA" style="color: var(--neon-blue);">0°</span></div>
-                        </div>
-                        <div style="margin-top: 10px; border-top: 1px solid #333; padding-top: 10px;">
-                            THREAT_AVG: <span id="avgRiskScore" style="color: var(--neon-red); font-weight: bold;">0%</span>
-                        </div>
-                    </div>
-
                     <div class="control-panel">
-                        <button class="btn-cyber" id="upload_video_btn" style="width: 100%;">UPLOAD_ENCRYPTED_STREAM</button>
+                        <button class="btn-cyber" id="upload_video_btn">UPLOAD_DATA_STREAM</button>
                         <input type="file" id="video_upload" accept="video/*" style="display: none;">
                     </div>
                 </aside>
             </div>
         </section>
-
-        <!-- TECH -->
-        <section id="about" class="view-section" style="padding: 100px 5%;">
-            <div class="terminal-panel" style="max-width: 1000px; margin: 0 auto;">
-                <h2 style="color: var(--neon-blue); margin-bottom: 20px;">[PROJECT_TECHNOLOGY]</h2>
-                <p>MEDIAPIPE_POSE: Google-backed neural interface for real-time skeletal telemetry.</p>
-                <p>BIOMECHANIC_ALGO: Kinetic force translation for injury threshold detection.</p>
-            </div>
-        </section>
     </div>
-
-    <footer>
-        <p>[ KINECTI_NEURAL_LAB // 2026 // ALL_RIGHTS_RESERVED ]</p>
-    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
@@ -309,24 +240,11 @@
         }
 
         const i18n = {
-            ko: {
-                title: "코어_분석",
-                left_knee: "L_무릎", right_knee: "R_무릎",
-                left_shoulder: "L_어깨", right_shoulder: "R_어깨",
-                injury_risk: "위험_레벨", upload_video: "데이터_스트림_업로드",
-                risk_safe: "안전", risk_warning: "주의", risk_critical: "위험"
-            },
-            en: {
-                title: "CORE_ANALYTICS",
-                left_knee: "L_KNEE", right_knee: "R_KNEE",
-                left_shoulder: "L_SHOULDER", right_shoulder: "R_SHOULDER",
-                injury_risk: "THREAT_LEVEL", upload_video: "UPLOAD_DATA_STREAM",
-                risk_safe: "SAFE", risk_warning: "WARNING", risk_critical: "CRITICAL"
-            }
+            ko: { title: "코어_분석", left_knee: "L_무릎", right_knee: "R_무릎", left_shoulder: "L_어깨", right_shoulder: "R_어깨", injury_risk: "위험_레벨", upload_video: "데이터_스트림_업로드", risk_safe: "안전", risk_warning: "주의", risk_critical: "위험" },
+            en: { title: "CORE_ANALYTICS", left_knee: "L_KNEE", right_knee: "R_KNEE", left_shoulder: "L_SHOULDER", right_shoulder: "R_SHOULDER", injury_risk: "THREAT_LEVEL", upload_video: "UPLOAD_DATA_STREAM", risk_safe: "SAFE", risk_warning: "WARNING", risk_critical: "CRITICAL" }
         };
 
         let currentLang = 'ko';
-        let isDrawingMode = false;
         let fabricCanvas;
 
         function setLanguage(lang) {
@@ -345,9 +263,7 @@
             fabricCanvas.freeDrawingBrush = new fabric.PencilBrush(fabricCanvas);
             fabricCanvas.freeDrawingBrush.color = '#00f3ff';
             fabricCanvas.freeDrawingBrush.width = 4;
-            fabricCanvas.freeDrawingBrush.shadow = new fabric.Shadow({
-                blur: 15, color: '#00f3ff', offsetX: 0, offsetY: 0
-            });
+            fabricCanvas.freeDrawingBrush.shadow = new fabric.Shadow({ blur: 15, color: '#00f3ff' });
             resizeCanvas();
         }
 
@@ -360,26 +276,16 @@
         }
 
         function toggleDrawing() {
-            isDrawingMode = !isDrawingMode;
-            fabricCanvas.isDrawingMode = isDrawingMode;
-            document.getElementById('btn_draw').innerText = isDrawingMode ? "ACTIVE" : "LASER_PEN";
-            document.getElementById('btn_draw').style.borderColor = isDrawingMode ? 'var(--neon-pink)' : 'var(--neon-blue)';
+            fabricCanvas.isDrawingMode = !fabricCanvas.isDrawingMode;
+            document.getElementById('btn_draw').innerText = fabricCanvas.isDrawingMode ? "ACTIVE" : "LASER_PEN";
         }
 
         function clearCanvas() { fabricCanvas.clear(); }
-
         window.addEventListener('resize', resizeCanvas);
 
         const videoElement = document.getElementById('input_video');
         const canvasElement = document.getElementById('output_canvas');
         const canvasCtx = canvasElement.getContext('2d');
-        const avgElements = {
-            lka: document.getElementById('avgLKA'), rka: document.getElementById('avgRKA'),
-            lsa: document.getElementById('avgLSA'), rsa: document.getElementById('avgRSA'),
-            risk: document.getElementById('avgRiskScore')
-        };
-        let metrics = { count: 0, sumLKA: 0, sumRKA: 0, sumLSA: 0, sumRSA: 0, sumRisk: 0 };
-
         const pose = new Pose({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`});
         pose.setOptions({ modelComplexity: 1, smoothLandmarks: true, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
 
@@ -397,31 +303,19 @@
             canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
             drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {color: '#ff00ff', lineWidth: 2});
             drawLandmarks(canvasCtx, results.poseLandmarks, {color: '#00f3ff', lineWidth: 1, radius: 2});
-
             const lm = results.poseLandmarks;
             const lKA = calculateAngle(lm[23], lm[25], lm[27]);
             const rKA = calculateAngle(lm[24], lm[26], lm[28]);
             const lSA = calculateAngle(lm[23], lm[11], lm[13]);
             const rSA = calculateAngle(lm[24], lm[12], lm[14]);
-
             document.getElementById('leftKneeAngle').innerText = `${lKA}°`;
             document.getElementById('rightKneeAngle').innerText = `${rKA}°`;
             document.getElementById('leftShoulderAngle').innerText = `${lSA}°`;
             document.getElementById('rightShoulderAngle').innerText = `${rSA}°`;
-
             let risk = (lKA < 100 || rKA < 100) ? 100 : (lKA < 120 || rKA < 120) ? 50 : 0;
             const rl = document.getElementById('riskLevel');
             rl.innerText = risk === 100 ? i18n[currentLang].risk_critical : risk === 50 ? i18n[currentLang].risk_warning : i18n[currentLang].risk_safe;
             rl.className = `value ${risk === 100 ? "risk-high" : risk === 50 ? "risk-mid" : "risk-low"}`;
-
-            metrics.count++; metrics.sumLKA += lKA; metrics.sumRKA += rKA; metrics.sumLSA += lSA; metrics.sumRSA += rSA; metrics.sumRisk += risk;
-            if (avgElements.lka) {
-                avgElements.lka.innerText = `${Math.round(metrics.sumLKA/metrics.count)}°`;
-                avgElements.rka.innerText = `${Math.round(metrics.sumRKA/metrics.count)}°`;
-                avgElements.lsa.innerText = `${Math.round(metrics.sumLSA/metrics.count)}°`;
-                avgElements.rsa.innerText = `${Math.round(metrics.sumRSA/metrics.count)}°`;
-                avgElements.risk.innerText = `${Math.round(metrics.sumRisk/metrics.count)}%`;
-            }
             canvasCtx.restore();
         });
 
@@ -438,7 +332,6 @@
         document.getElementById('video_upload').addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
-                metrics = { count: 0, sumLKA: 0, sumRKA: 0, sumLSA: 0, sumRSA: 0, sumRisk: 0 };
                 videoElement.src = URL.createObjectURL(file);
                 videoElement.play();
                 videoElement.onplay = processFrame;
