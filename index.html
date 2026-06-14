@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1175,19 +1175,19 @@
 </head>
 <body>
     <header class="site-header">
-        <nav class="nav" aria-label="주요 메뉴">
+        <nav class="nav" aria-label="Main menu">
             <a href="#home" class="logo">KINECTI</a>
             <div class="menu">
-                <a href="#tool">코칭 보드</a>
-                <a href="#guide">사용 안내</a>
-                <a href="#resources">자료실</a>
-                <a href="#about">기술 정보</a>
-                <a href="#privacy">개인정보 처리방침</a>
-                <a href="#contact">문의</a>
+                <a href="#tool">Coaching Board</a>
+                <a href="#guide">Guide</a>
+                <a href="#resources">Resources</a>
+                <a href="#about">Technology</a>
+                <a href="#privacy">Privacy</a>
+                <a href="#contact">Contact</a>
             </div>
-            <div class="nav-actions" aria-label="계정 메뉴">
+            <div class="nav-actions" aria-label="Account menu">
                 <button class="nav-button premium" id="navPremium" type="button">Premium</button>
-                <button class="nav-button" id="navLogin" type="button">로그인</button>
+                <button class="nav-button" id="navLogin" type="button">Log in</button>
                 <div class="language-picker">
                     <button class="nav-button language-button" id="languageButton" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Language settings">⚙️</button>
                     <div class="language-menu" id="languageMenu" hidden>
@@ -1615,7 +1615,8 @@
         const freeSessionLimit = 2;
         // Temporary front-end gate until server-side subscription validation exists.
         const isPremium = new URLSearchParams(location.search).get('premium') === '1';
-        let currentLanguage = localStorage.getItem('kinecti-language') || 'en';
+        const languageStorageKey = 'kinecti-language-v2';
+        let currentLanguage = localStorage.getItem(languageStorageKey) || 'en';
         let fabricCanvas;
         let pose;
         let analysisStats = {
@@ -1999,7 +2000,7 @@
         function applyLanguage(language) {
             currentLanguage = translations[language] ? language : 'en';
             const pack = translations[currentLanguage];
-            localStorage.setItem('kinecti-language', currentLanguage);
+            localStorage.setItem(languageStorageKey, currentLanguage);
             document.documentElement.lang = pack.lang;
             document.title = pack.title;
 
