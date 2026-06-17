@@ -54,7 +54,7 @@
             margin: 0;
             color: var(--text);
             font-family: var(--font-main);
-            background: var(--bg);
+            background: transparent;
             line-height: 1.65;
             min-height: 100vh;
             overflow-x: hidden;
@@ -1117,6 +1117,19 @@
             background: var(--footer-bg);
         }
 
+        footer nav {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        footer a {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
         @media (max-width: 940px) {
             .hero, .app-container, .grid-3 { grid-template-columns: 1fr; }
             .hero { min-height: auto; }
@@ -1171,10 +1184,26 @@
                 justify-self: start;
             }
         }
+        /* Hyperspeed Background */
+        #hyperspeed-container {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: #000;
+        }
+        #hyperspeed-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
     </style>
 </head>
 <body>
-    <header class="site-header">
+    <!-- Hyperspeed Background -->
+    <div id="hyperspeed-container"></div>
+
+    <!-- Main Content Wrapper -->
+    <div style="position: relative; z-index: 1;">
+        <header class="site-header">
         <nav class="nav" aria-label="Main menu">
             <a href="#home" class="logo">KINECTI</a>
             <div class="menu">
@@ -1583,6 +1612,11 @@
     </div>
 
     <footer>
+        <nav aria-label="Legal links">
+            <a href="guide.html">사용 가이드</a>
+            <a href="privacy.html">개인정보처리방침</a>
+            <a href="terms.html">이용약관</a>
+        </nav>
         <p>© 2026 KINECTI Neural Lab. All rights reserved.</p>
     </footer>
 
@@ -1737,6 +1771,9 @@
                     '#btn_compare_sessions': 'Compare',
                     '#btn_report_png': 'Save report',
                     '#btn_export_csv': 'Export CSV',
+                    'footer nav a[href="guide.html"]': 'Guide',
+                    'footer nav a[href="privacy.html"]': 'Privacy Policy',
+                    'footer nav a[href="terms.html"]': 'Terms',
                     'footer p': '© 2026 KINECTI Neural Lab. All rights reserved.'
                 },
                 placeholder: {
@@ -1846,6 +1883,9 @@
                     '#btn_compare_sessions': '비교',
                     '#btn_report_png': '리포트 저장',
                     '#btn_export_csv': 'CSV 내보내기',
+                    'footer nav a[href="guide.html"]': '사용 가이드',
+                    'footer nav a[href="privacy.html"]': '개인정보처리방침',
+                    'footer nav a[href="terms.html"]': '이용약관',
                     'footer p': '© 2026 KINECTI Neural Lab. All rights reserved.'
                 },
                 placeholder: {
@@ -1955,6 +1995,9 @@
                     '#btn_compare_sessions': '比較',
                     '#btn_report_png': 'レポート保存',
                     '#btn_export_csv': 'CSV出力',
+                    'footer nav a[href="guide.html"]': 'ガイド',
+                    'footer nav a[href="privacy.html"]': 'プライバシーポリシー',
+                    'footer nav a[href="terms.html"]': '利用規約',
                     'footer p': '© 2026 KINECTI Neural Lab. All rights reserved.'
                 },
                 placeholder: {
@@ -1987,6 +2030,147 @@
             }
         };
 
+        const sectionContent = {
+            en: {
+                guide: `
+            <div class="section-head">
+                <h2>Guide</h2>
+                <p>For more reliable results, use footage where the skier's full body is visible and the turn flow is not interrupted. Angle estimates can become unstable when the skier is far from the camera or joints are hidden by ski clothing, poles, or other people.</p>
+            </div>
+            <div class="grid-3">
+                <article class="card">
+                    <h3>1. Select a ski video</h3>
+                    <p>Choose the turn footage you want to review. The file is read only in browser memory and is not stored on a server.</p>
+                </article>
+                <article class="card">
+                    <h3>2. Check turn tracking</h3>
+                    <p>Use the skeleton overlay to review knee flexion and upper-body line. Annotation tools help mark turn entry, transition, and finish moments.</p>
+                </article>
+                <article class="card">
+                    <h3>3. Use it for coaching records</h3>
+                    <p>Results are reference material for practice logs and coaching feedback. Skill evaluation or injury-related decisions should come from a ski instructor, coach, or medical professional.</p>
+                </article>
+            </div>`,
+                resources: `
+            <div class="section-head">
+                <h2>Resources</h2>
+                <p>Basic references on ski turn video review, knee flexion, upper-body line, and left/right turn balance. Use these notes to interpret KINECTI results more carefully.</p>
+            </div>
+            <div class="article-list">
+                <article class="resource-article">
+                    <h3>What ski turn video analysis means</h3>
+                    <p>Ski turn video analysis estimates key body landmarks in the footage and reviews how knee and upper-body lines change through the turn. Tracking shoulders, hips, knees, and ankles frame by frame makes the turn flow easier to revisit visually.</p>
+                    <p>KINECTI processes the selected ski video in the browser and displays landmark and angle references. This can help with practice logs or left/right turn comparison, but camera distance, slope, angle, ski clothing, and pole occlusion can affect the estimates. Do not judge posture from a single number alone.</p>
+                </article>
+                <article class="resource-article">
+                    <h3>Why knee flexion matters in ski turns</h3>
+                    <p>Knee flexion and left/right differences can help review turn stability, load transfer, and rhythm. If one side repeatedly collapses or shows a large difference, the turn balance may need closer review.</p>
+                    <p>In video analysis, knee flexion is calculated from hip, knee, and ankle positions. This is a reference signal, not a diagnosis of skill level or injury risk. If pain or prior injury is involved, expert evaluation should come first.</p>
+                </article>
+                <article class="resource-article">
+                    <h3>What to check when reviewing ski turns</h3>
+                    <p>It is usually better to review the full flow from turn entry to transition and finish, rather than judging one frozen posture. Comparing knee flexion and upper-body line across left and right turns helps reveal repeated habits.</p>
+                    <ul>
+                        <li>Check that the skier's full body is inside the frame.</li>
+                        <li>Use a front-diagonal or side-diagonal view when possible.</li>
+                        <li>Look for repeated large differences between left and right knee flexion.</li>
+                        <li>Results can become unstable when poles, other skiers, or lift structures hide body parts.</li>
+                    </ul>
+                    <p>KINECTI annotations make it easier to mark entry, transition, and finish frames for comparison.</p>
+                </article>
+                <article class="resource-article">
+                    <h3>How MediaPipe Pose estimates joints</h3>
+                    <p>MediaPipe Pose estimates major body landmarks from a video image. It detects a person and calculates points such as shoulders, elbows, wrists, hips, knees, and ankles. KINECTI uses these landmarks to draw the skeleton and show turn reference metrics.</p>
+                    <p>The technology is fast and accessible, but it is not perfect for every ski video. Long-distance footage, fast turns, backlighting, overlapping people, or body parts outside the frame can reduce tracking quality. First check whether the skeleton overlay matches the skier's actual body position.</p>
+                </article>
+                <article class="resource-article">
+                    <h3>Important caution for coaching boards</h3>
+                    <p>KINECTI is a tool for coaches to review footage, explain points, and create reports. AI reference metrics are affected by filming conditions and model estimation, so they should not be treated as absolute standards. Pain or injury-related decisions should be reviewed by medical or ski professionals.</p>
+                    <p>For more stable analysis, keep the skier large enough in the frame and capture the full turn. When comparing sessions, similar camera distance and angle make changes easier to track.</p>
+                </article>
+            </div>`,
+                about: `
+            <div class="section-head">
+                <h2>Technology</h2>
+                <p>KINECTI uses a browser-based pose estimation model and HTML Canvas visualization. It extracts pose landmarks from the selected ski video and calculates angles between key points to show turn changes as numbers and visual references.</p>
+            </div>
+            <div class="grid-3">
+                <article class="card">
+                    <h3>MediaPipe Pose</h3>
+                    <p>Estimates key body landmarks and displays frame-by-frame movement on the screen.</p>
+                </article>
+                <article class="card">
+                    <h3>Turn metric calculation</h3>
+                    <p>Calculates vector angles between hips, knees, ankles, and upper-body reference points to track knee flexion and upper-body line.</p>
+                </article>
+                <article class="card">
+                    <h3>Local processing</h3>
+                    <p>The selected ski video is analyzed in the current browser and is not stored on an external server.</p>
+                </article>
+            </div>`,
+                privacy: `
+            <div class="section-head">
+                <h2>Privacy</h2>
+                <p>This policy explains what information may be processed when using the KINECTI website and what rights users have.</p>
+            </div>
+            <div class="policy">
+                <h3>Information we process</h3>
+                <p>KINECTI does not provide account registration and does not require directly identifying information such as name, phone number, or address. Video files selected by the user are opened in the browser for analysis and are not uploaded or stored by the site operator on a separate server.</p>
+                <h3>Automatically collected information</h3>
+                <p>Google Analytics and Microsoft Clarity may be used to check service quality. These tools may process non-identifying statistics such as visited pages, device type, browser information, and approximate usage patterns.</p>
+                <h3>Cookies</h3>
+                <p>Service providers may use cookies or similar technologies for traffic measurement and service improvement. Users can block or delete cookies in browser settings.</p>
+                <h3>Purpose of use</h3>
+                <ul>
+                    <li>Check website errors and improve performance</li>
+                    <li>Understand how content and features are used</li>
+                    <li>Review security and prevent abuse</li>
+                </ul>
+                <h3>Contact</h3>
+                <p>For privacy questions, contact us through the email in the Contact section. We will respond within the necessary scope after reviewing the request.</p>
+            </div>`,
+                contact: `
+            <div class="section-head">
+                <h2>Operator and Contact</h2>
+                <p>KINECTI Neural Lab is an individual project researching sports coaching video boards and browser-based report tools. Feature suggestions, bug reports, and privacy questions are accepted by email.</p>
+            </div>
+            <div class="policy">
+                <h3>Operator</h3>
+                <p>KINECTI Neural Lab</p>
+                <h3>Contact email</h3>
+                <p><a href="mailto:smarttool_lee@naver.com">smarttool_lee@naver.com</a></p>
+                <h3>Disclaimer</h3>
+                <p>KINECTI's AI reference metrics are auxiliary information for coaching explanations. They do not replace skill-level assessment, disease diagnosis, treatment prescription, or injury judgment.</p>
+            </div>`
+            },
+            ko: {
+                guide: `
+            <div class="section-head">
+                <h2>사용 안내</h2>
+                <p>정확한 결과를 위해 스키어 전신이 보이고 턴 흐름이 끊기지 않는 영상을 사용하세요. 멀리서 촬영했거나 스키복, 폴, 다른 사람에게 관절이 가려진 영상에서는 각도 계산이 불안정할 수 있습니다.</p>
+            </div>
+            <div class="grid-3">
+                <article class="card"><h3>1. 스키 영상 선택</h3><p>분석할 턴 영상을 선택합니다. 파일은 브라우저 메모리에서만 읽히며 서버 저장 기능은 없습니다.</p></article>
+                <article class="card"><h3>2. 턴 자세 추적 확인</h3><p>캔버스에 표시되는 골격선을 보며 무릎 굴곡과 상체 라인을 확인합니다. 주석 기능으로 턴 시작, 전환, 마무리 구간을 표시할 수 있습니다.</p></article>
+                <article class="card"><h3>3. 강습·연습 기록으로 활용</h3><p>결과는 개인 연습 기록과 코칭 피드백을 위한 참고용입니다. 기술 평가나 부상 판단은 스키 강사, 코치, 의료 전문가의 판단을 우선해야 합니다.</p></article>
+            </div>`,
+                resources: document.getElementById('resources')?.innerHTML || '',
+                about: document.getElementById('about')?.innerHTML || '',
+                privacy: document.getElementById('privacy')?.innerHTML || '',
+                contact: document.getElementById('contact')?.innerHTML || ''
+            }
+        };
+        sectionContent['en-AT'] = sectionContent.en;
+        sectionContent.ja = sectionContent.en;
+
+        function renderLocalizedSections(language) {
+            const content = sectionContent[language] || sectionContent.en;
+            Object.entries(content).forEach(([sectionId, html]) => {
+                const section = document.getElementById(sectionId);
+                if (section && html) section.innerHTML = html;
+            });
+        }
+
         function t(key) {
             return translations[currentLanguage]?.[key] ?? translations.en[key];
         }
@@ -2003,6 +2187,7 @@
             localStorage.setItem(languageStorageKey, currentLanguage);
             document.documentElement.lang = pack.lang;
             document.title = pack.title;
+            renderLocalizedSections(currentLanguage);
 
             Object.entries(pack.text).forEach(([selector, text]) => setElementsText(selector, text));
             Object.entries(pack.placeholder).forEach(([selector, text]) => {
@@ -3349,5 +3534,9 @@
         });
         applyLanguage(currentLanguage);
     </script>
+    </div><!-- End of Main Content Wrapper -->
+
+    <!-- Hyperspeed Background Logic -->
+    <script type="module" src="hyperspeed.js"></script>
 </body>
 </html>
