@@ -20,7 +20,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개인정보처리방침 | KINECTI</title>
     <style>
-        body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; line-height: 1.7; color: #1f2937; max-width: 860px; margin: 0 auto; padding: 40px 20px; }
+        body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; line-height: 1.7; color: #1f2937; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { width: 100%; max-width: 860px; margin: 0 auto; padding: 40px 20px; flex: 1; }
         h1 { border-bottom: 2px solid #38bdf8; padding-bottom: 12px; }
         h2 { margin-top: 34px; color: #0369a1; font-size: 1.2rem; }
         a { color: #0369a1; }
@@ -30,8 +31,9 @@
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link">KINECTI로 돌아가기</a>
-    <h1>개인정보처리방침</h1>
+    <div class="container">
+        <a href="../index.html" class="back-link">KINECTI로 돌아가기</a>
+        <h1>개인정보처리방침</h1>
     <p class="notice">KINECTI는 스키 영상 기반 코칭 리포트 도구입니다. 현재 핵심 분석은 브라우저 로컬 처리를 기준으로 하며, 문의, 광고, 분석 도구, 향후 Premium/결제 기능 사용 시 필요한 범위의 정보가 처리될 수 있습니다.</p>
 
     <h2>1. 처리하는 정보</h2>
@@ -67,5 +69,6 @@
     <h2>9. 문의처</h2>
     <p>개인정보 관련 문의: <a class="email-link" href="mailto:smarttool_lee@naver.com">smarttool_lee@naver.com</a></p>
     <p>시행일: 2026년 6월 16일</p>
+    </div>
 </body>
 </html>
