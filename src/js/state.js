@@ -19,7 +19,6 @@ export function initElements() {
         elements.premiumLogin = document.getElementById('premiumLogin');
         elements.premiumLoginForm = document.getElementById('premiumLoginForm');
         elements.loginEmail = document.getElementById('loginEmail');
-        elements.btnResetClientId = document.getElementById('btnResetClientId');
         elements.navPremium = document.getElementById('navPremium');
         elements.navLogin = document.getElementById('navLogin');
         elements.languageButton = document.getElementById('languageButton');

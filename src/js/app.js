@@ -4,6 +4,9 @@ import * as video from './video-player.js';
 import * as sessions from './session-manager.js';
 import * as ai from './ai-engine.js';
 
+// Google Cloud Console에서 생성한 실제 클라이언트 ID를 기재해 주세요.
+const GOOGLE_CLIENT_ID = '109287389240-abcdefgh123456.apps.googleusercontent.com';
+
 /**
  * app.js (Main Entry Point)
  * 모든 모듈을 조립하고 앱의 라이프사이클을 관리합니다.
@@ -50,23 +53,6 @@ function init() {
     
     if (elements.premiumLogin) {
         elements.premiumLogin.addEventListener('click', handleGoogleLogin);
-    }
-    
-    if (elements.btnResetClientId) {
-        elements.btnResetClientId.addEventListener('click', (e) => {
-            e.preventDefault();
-            const currentId = localStorage.getItem('googleClientId') || '';
-            const newId = prompt("새로운 Google OAuth Client ID를 입력하세요. (기존 설정을 지우려면 비워두고 확인을 누르세요.):", currentId);
-            if (newId === null) return;
-            const trimmed = newId.trim();
-            if (trimmed) {
-                localStorage.setItem('googleClientId', trimmed);
-                alert('Google Client ID가 저장되었습니다.');
-            } else {
-                localStorage.removeItem('googleClientId');
-                alert('Google Client ID 설정이 초기화되었습니다.');
-            }
-        });
     }
     
     elements.premiumClose.addEventListener('click', closePremiumModal);
@@ -172,21 +158,6 @@ function init() {
 
 // --- Google Sign-In Integration ---
 function handleGoogleLogin() {
-    let clientId = localStorage.getItem('googleClientId');
-    if (!clientId) {
-        clientId = prompt(
-            "Google 로그인을 사용하려면 Google Cloud Console에서 생성한 '클라이언트 ID(Client ID)'가 필요합니다.\n\n" +
-            "클라이언트 ID를 입력해 주세요 (예: 123456-abcde.apps.googleusercontent.com)"
-        );
-        if (!clientId) return;
-        clientId = clientId.trim();
-        if (clientId) {
-            localStorage.setItem('googleClientId', clientId);
-        } else {
-            return;
-        }
-    }
-
     try {
         if (typeof google === 'undefined' || !google.accounts) {
             alert('구글 로그인 라이브러리를 로드하는 중입니다. 잠시 후 다시 시도해 주세요.');
@@ -194,7 +165,7 @@ function handleGoogleLogin() {
         }
         
         const client = google.accounts.oauth2.initTokenClient({
-            client_id: clientId,
+            client_id: GOOGLE_CLIENT_ID,
             scope: 'email profile openid',
             callback: (tokenResponse) => {
                 if (tokenResponse && tokenResponse.access_token) {
@@ -229,13 +200,13 @@ function handleGoogleLogin() {
             },
             error_callback: (err) => {
                 console.error('Google Sign-in Error:', err);
-                alert('구글 로그인 도중 오류가 발생했습니다. 클라이언트 ID를 확인해 주세요.');
+                alert('구글 로그인 도중 오류가 발생했습니다. 클라이언트 ID 설정을 확인해 주세요.');
             }
         });
         client.requestAccessToken();
     } catch (error) {
         console.error('Failed to trigger Google Sign-In:', error);
-        alert('구글 로그인 초기화에 실패했습니다. 올바른 클라이언트 ID인지 확인해 주세요. (재설정하려면 아래의 "Google Client ID 설정" 링크를 클릭하세요.)');
+        alert('구글 로그인 초기화에 실패했습니다. 올바른 클라이언트 ID인지 확인해 주세요.');
     }
 }
 
