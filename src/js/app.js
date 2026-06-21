@@ -38,7 +38,13 @@ function init() {
         });
     });
     
-    elements.navPremium.addEventListener('click', () => openPremiumModal('Premium'));
+    elements.navPremium.addEventListener('click', () => {
+        if (state.isPremium) {
+            alert(state.currentLanguage === 'ko' ? '이미 Premium 권한이 활성화되어 있으며, 모든 기능을 자유롭게 사용하실 수 있습니다!' : (state.currentLanguage === 'ja' ? 'すでにPremium権限が有効になっており、すべての機能をご利用いただけます！' : 'Premium access is already active and all features are available!'));
+        } else {
+            openPremiumModal('Premium');
+        }
+    });
     elements.navLogin.addEventListener('click', () => {
         if (state.isPremium) {
             if (confirm(t('logoutConfirm'))) {
