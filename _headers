@@ -1,0 +1,9 @@
+# Cloudflare Pages Security Headers Configuration
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-XSS-Protection: 1; mode=block
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.clarity.ms https://cnzrefcanoolrjezmrrs.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.googletagmanager.com https://www.clarity.ms https://*.googleusercontent.com; connect-src 'self' blob: https://cnzrefcanoolrjezmrrs.supabase.co https://*.supabase.co https://www.googleapis.com https://*.clarity.ms https://*.google-analytics.com https://cdn.jsdelivr.net; frame-src 'self' https://accounts.google.com https://*.supabase.co; worker-src 'self' blob:;

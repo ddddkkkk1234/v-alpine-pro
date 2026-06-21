@@ -4,8 +4,8 @@ import * as video from './video-player.js';
 import * as sessions from './session-manager.js';
 import * as ai from './ai-engine.js';
 
-// Supabase 프로젝트 설정 (프로젝트 ID: cnzrefcanoolrjezmrrs)
-const SUPABASE_URL = 'https://cnzrefcanoolrjezmrrs.supabase.co';
+// Supabase 프로젝트 설정 (프로젝트 ID: yudvpqpcipdiqshjmehy)
+const SUPABASE_URL = 'https://yudvpqpcipdiqshjmehy.supabase.co';
 let supabaseAnonKey = localStorage.getItem('supabaseAnonKey') || '';
 let supabaseClient = null;
 

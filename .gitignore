@@ -1,3 +1,16 @@
 # 현재 있는 폴더 중 제외
 .vscode/
 백업/
+
+# Secrets and Local configs
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# System and logs
+node_modules/
+.DS_Store
+*.log
+npm-debug.log*
