@@ -1,5 +1,6 @@
 import { state, elements, t, requirePremium } from './state.js';
 import { formatTime } from './video-player.js';
+import { escapeHtml } from './ui-controls.js';
 
 /**
  * session-manager.js
@@ -35,8 +36,8 @@ export function renderTurnSessions(selectTurnSessionCallback) {
 
     elements.turnSessionList.innerHTML = state.turnSessions.map(session => `
         <button class="session-item ${session.id === state.selectedSessionId ? 'active' : ''}" type="button" data-session-id="${session.id}">
-            <strong>${session.name}</strong>
-            <span>${session.tag} · ${formatTime(session.start)}-${formatTime(session.end)} · ${getSessionRowCount(session)}프레임</span>
+            <strong>${escapeHtml(session.name)}</strong>
+            <span>${escapeHtml(session.tag)} · ${formatTime(session.start)}-${formatTime(session.end)} · ${getSessionRowCount(session)}프레임</span>
         </button>
     `).join('');
 
@@ -93,9 +94,9 @@ export function renderSessionCompare() {
         const memo = session.memo || '저장된 코칭 메모 없음';
         return `
             <div class="compare-card">
-                <strong>${session.name} · ${session.tag}</strong>
+                <strong>${escapeHtml(session.name)} · ${escapeHtml(session.tag)}</strong>
                 <span>${formatTime(session.start)}-${formatTime(session.end)} · ${metrics.frames}프레임 · 최저 무릎 ${metrics.minKnee}도 · 좌우 차이 ${metrics.maxGap}도 · 품질 ${metrics.avgQuality}%</span>
-                <span>${memo}</span>
+                <span>${escapeHtml(memo)}</span>
             </div>
         `;
     }).join('');

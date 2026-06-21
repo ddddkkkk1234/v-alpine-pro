@@ -49,26 +49,25 @@ function init() {
     }
     
     if (elements.premiumLogin) {
-        elements.premiumLogin.addEventListener('click', () => {
-            const width = 500;
-            const height = 650;
-            const left = (window.screen.width - width) / 2;
-            const top = (window.screen.height - height) / 2;
-            window.open('public/google_login.html', 'Google Login', `width=${width},height=${height},top=${top},left=${left}`);
-        });
+        elements.premiumLogin.addEventListener('click', handleGoogleLogin);
     }
     
-    window.addEventListener('message', (event) => {
-        if (event.data && event.data.type === 'google-login-success') {
-            state.isPremium = true;
-            localStorage.setItem('isPremium', 'true');
-            ui.updateNavAccountState();
-            closePremiumModal();
-            const successMsg = state.currentLanguage === 'ko' ? 'Google 계정으로 로그인되었습니다.' : (state.currentLanguage === 'ja' ? 'Googleアカウントでログインしました。' : 'Successfully logged in with Google.');
-            alert(successMsg);
-            resetPremiumSummary();
-        }
-    });
+    if (elements.btnResetClientId) {
+        elements.btnResetClientId.addEventListener('click', (e) => {
+            e.preventDefault();
+            const currentId = localStorage.getItem('googleClientId') || '';
+            const newId = prompt("새로운 Google OAuth Client ID를 입력하세요. (기존 설정을 지우려면 비워두고 확인을 누르세요.):", currentId);
+            if (newId === null) return;
+            const trimmed = newId.trim();
+            if (trimmed) {
+                localStorage.setItem('googleClientId', trimmed);
+                alert('Google Client ID가 저장되었습니다.');
+            } else {
+                localStorage.removeItem('googleClientId');
+                alert('Google Client ID 설정이 초기화되었습니다.');
+            }
+        });
+    }
     
     elements.premiumClose.addEventListener('click', closePremiumModal);
     
@@ -169,6 +168,75 @@ function init() {
     resetPremiumSummary();
     ui.updateNavAccountState();
     ui.showPage(location.hash.slice(1), false);
+}
+
+// --- Google Sign-In Integration ---
+function handleGoogleLogin() {
+    let clientId = localStorage.getItem('googleClientId');
+    if (!clientId) {
+        clientId = prompt(
+            "Google 로그인을 사용하려면 Google Cloud Console에서 생성한 '클라이언트 ID(Client ID)'가 필요합니다.\n\n" +
+            "클라이언트 ID를 입력해 주세요 (예: 123456-abcde.apps.googleusercontent.com)"
+        );
+        if (!clientId) return;
+        clientId = clientId.trim();
+        if (clientId) {
+            localStorage.setItem('googleClientId', clientId);
+        } else {
+            return;
+        }
+    }
+
+    try {
+        if (typeof google === 'undefined' || !google.accounts) {
+            alert('구글 로그인 라이브러리를 로드하는 중입니다. 잠시 후 다시 시도해 주세요.');
+            return;
+        }
+        
+        const client = google.accounts.oauth2.initTokenClient({
+            client_id: clientId,
+            scope: 'email profile openid',
+            callback: (tokenResponse) => {
+                if (tokenResponse && tokenResponse.access_token) {
+                    fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`)
+                        .then(res => {
+                            if (!res.ok) throw new Error('UserInfo response not ok');
+                            return res.json();
+                        })
+                        .then(userInfo => {
+                            state.isPremium = true;
+                            localStorage.setItem('isPremium', 'true');
+                            localStorage.setItem('userEmail', userInfo.email || '');
+                            localStorage.setItem('userName', userInfo.name || '');
+                            localStorage.setItem('userPicture', userInfo.picture || '');
+                            
+                            ui.updateNavAccountState();
+                            closePremiumModal();
+                            const successMsg = state.currentLanguage === 'ko' ? `Google 계정(${userInfo.email})으로 성공적으로 로그인되었습니다.` : (state.currentLanguage === 'ja' ? `Googleアカウント(${userInfo.email})でログインしました。` : `Successfully logged in with Google (${userInfo.email}).`);
+                            alert(successMsg);
+                            resetPremiumSummary();
+                        })
+                        .catch(err => {
+                            console.error('Error fetching user info:', err);
+                            state.isPremium = true;
+                            localStorage.setItem('isPremium', 'true');
+                            ui.updateNavAccountState();
+                            closePremiumModal();
+                            alert('Google 로그인에 성공했으나 사용자 정보를 불러오지 못했습니다.');
+                            resetPremiumSummary();
+                        });
+                }
+            },
+            error_callback: (err) => {
+                console.error('Google Sign-in Error:', err);
+                alert('구글 로그인 도중 오류가 발생했습니다. 클라이언트 ID를 확인해 주세요.');
+            }
+        });
+        client.requestAccessToken();
+    } catch (error) {
+        console.error('Failed to trigger Google Sign-In:', error);
+        alert('구글 로그인 초기화에 실패했습니다. 올바른 클라이언트 ID인지 확인해 주세요. (재설정하려면 아래의 "Google Client ID 설정" 링크를 클릭하세요.)');
+    }
 }
 
 // --- AI & Logic ---
@@ -530,7 +598,7 @@ function renderFrameCaptures() {
     }
     elements.captureList.innerHTML = state.frameCaptures.map((c, i) => `
         <div class="capture-item"><strong>${t('capturePrefix')} ${i+1} · ${video.formatTime(c.time)}</strong>
-        <span>${c.sessionName || 'Full'} · ${c.note || ''}</span><img src="${c.image}"></div>
+        <span>${ui.escapeHtml(c.sessionName) || 'Full'} · ${ui.escapeHtml(c.note) || ''}</span><img src="${c.image}"></div>
     `).join('');
 }
 
