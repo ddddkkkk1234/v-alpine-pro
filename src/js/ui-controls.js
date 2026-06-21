@@ -1,4 +1,4 @@
-import { state, elements, t } from './state.js';
+import { state, elements, t, updatePremiumModalUI } from './state.js';
 
 /**
  * ui-controls.js
@@ -88,7 +88,11 @@ export function setDashboardTab(tabName) {
 export function updateNavAccountState() {
     elements.navPremium.classList.toggle('active-premium', state.isPremium);
     elements.navPremium.textContent = state.isPremium ? t('premiumActive') : 'Premium';
-    elements.navLogin.textContent = state.isPremium ? t('loggedIn') : t('login');
+    
+    const isLoggedIn = !!localStorage.getItem('userEmail');
+    elements.navLogin.textContent = isLoggedIn ? t('logout') : t('login');
+    
+    updatePremiumModalUI();
 }
 
 export function updateTrackingQuality(quality) {

@@ -46,12 +46,16 @@ function init() {
         }
     });
     elements.navLogin.addEventListener('click', () => {
-        if (state.isPremium) {
+        const isLoggedIn = !!localStorage.getItem('userEmail');
+        if (isLoggedIn) {
             if (confirm(t('logoutConfirm'))) {
                 if (supabaseClient) {
                     supabaseClient.auth.signOut().then(() => {
                         state.isPremium = false;
                         localStorage.removeItem('isPremium');
+                        localStorage.removeItem('userEmail');
+                        localStorage.removeItem('userName');
+                        localStorage.removeItem('userPicture');
                         ui.updateNavAccountState();
                         alert(t('loggedOutMsg'));
                         resetPremiumSummary();
@@ -59,6 +63,9 @@ function init() {
                 } else {
                     state.isPremium = false;
                     localStorage.removeItem('isPremium');
+                    localStorage.removeItem('userEmail');
+                    localStorage.removeItem('userName');
+                    localStorage.removeItem('userPicture');
                     ui.updateNavAccountState();
                     alert(t('loggedOutMsg'));
                     resetPremiumSummary();
@@ -192,18 +199,42 @@ function setupSupabaseAuth() {
     if (!supabaseClient) return;
 
     // 인증 상태 변화 감지 (로그인/로그아웃 등 리다이렉트 응답 처리)
-    supabaseClient.auth.onAuthStateChange((event, session) => {
+    supabaseClient.auth.onAuthStateChange(async (event, session) => {
         if (session) {
-            state.isPremium = true;
-            localStorage.setItem('isPremium', 'true');
+            // URL 쿼리에 ?premium=1이 있는 경우 강제 프리미엄 적용 (테스트용)
+            let isPremiumUser = new URLSearchParams(location.search).get('premium') === '1';
+            
+            if (!isPremiumUser) {
+                try {
+                    const { data: profile } = await supabaseClient
+                        .from('profiles')
+                        .select('is_premium')
+                        .eq('id', session.user.id)
+                        .single();
+                    if (profile) {
+                        isPremiumUser = !!profile.is_premium;
+                    }
+                } catch (err) {
+                    console.error('Failed to fetch profile premium status:', err);
+                }
+            }
+
+            state.isPremium = isPremiumUser;
+            localStorage.setItem('isPremium', isPremiumUser ? 'true' : 'false');
             localStorage.setItem('userEmail', session.user.email || '');
             localStorage.setItem('userName', session.user.user_metadata.full_name || session.user.email || '');
             localStorage.setItem('userPicture', session.user.user_metadata.avatar_url || '');
             ui.updateNavAccountState();
-            closePremiumModal();
+            if (isPremiumUser) {
+                closePremiumModal();
+            } else {
+                openPremiumModal(state.lastFeatureRequested || 'Premium');
+            }
         } else {
-            state.isPremium = false;
-            localStorage.removeItem('isPremium');
+            // 로그아웃 시 URL 쿼리에 ?premium=1이 있으면 강제 유지, 없으면 해제
+            const forcePremium = new URLSearchParams(location.search).get('premium') === '1';
+            state.isPremium = forcePremium;
+            localStorage.setItem('isPremium', forcePremium ? 'true' : 'false');
             localStorage.removeItem('userEmail');
             localStorage.removeItem('userName');
             localStorage.removeItem('userPicture');
@@ -212,10 +243,29 @@ function setupSupabaseAuth() {
     });
 
     // 시작 시 현재 세션 확인
-    supabaseClient.auth.getSession().then(({ data: { session } }) => {
+    supabaseClient.auth.getSession().then(async ({ data: { session } }) => {
         if (session) {
-            state.isPremium = true;
-            localStorage.setItem('isPremium', 'true');
+            let isPremiumUser = new URLSearchParams(location.search).get('premium') === '1';
+            
+            if (!isPremiumUser) {
+                try {
+                    const { data: profile } = await supabaseClient
+                        .from('profiles')
+                        .select('is_premium')
+                        .eq('id', session.user.id)
+                        .single();
+                    if (profile) {
+                        isPremiumUser = !!profile.is_premium;
+                    }
+                } catch (err) {
+                    console.error('Failed to fetch profile premium status:', err);
+                }
+            }
+            state.isPremium = isPremiumUser;
+            localStorage.setItem('isPremium', isPremiumUser ? 'true' : 'false');
+            localStorage.setItem('userEmail', session.user.email || '');
+            localStorage.setItem('userName', session.user.user_metadata.full_name || session.user.email || '');
+            localStorage.setItem('userPicture', session.user.user_metadata.avatar_url || '');
             ui.updateNavAccountState();
         }
     });

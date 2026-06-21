@@ -14,6 +14,7 @@ export function initElements() {
         }
         elements.emptyState = document.getElementById('empty_state');
         elements.premiumModal = document.getElementById('premiumModal');
+        elements.premiumModalTitle = document.getElementById('premiumModalTitle');
         elements.premiumModalCopy = document.getElementById('premiumModalCopy');
         elements.premiumClose = document.getElementById('premiumClose');
         elements.premiumLogin = document.getElementById('premiumLogin');
@@ -86,7 +87,8 @@ export const state = {
     minUsableVisibility: 0.55,
     angleSmoothingWindow: 5,
     angleBuffers: { leftKnee: [], rightKnee: [], leftShoulder: [], rightShoulder: [] },
-    validSections: new Set(['home', 'tool', 'guide', 'resources', 'about', 'privacy', 'contact'])
+    validSections: new Set(['home', 'tool', 'guide', 'resources', 'about', 'privacy', 'contact']),
+    lastFeatureRequested: 'Premium'
 };
 
 // --- Helper Functions ---
@@ -102,15 +104,29 @@ export function requirePremium(featureName) {
 }
 
 export function openPremiumModal(featureName = '스키 턴 Premium 기능') {
-    if (elements.premiumModalCopy) {
-        elements.premiumModalCopy.textContent = t('premiumCopy')(featureName);
-    }
+    state.lastFeatureRequested = featureName;
+    updatePremiumModalUI();
     if (elements.premiumModal) {
         elements.premiumModal.hidden = false;
         elements.premiumModal.classList.add('is-open');
     }
     if (elements.loginEmail) {
         elements.loginEmail.focus();
+    }
+}
+
+export function updatePremiumModalUI() {
+    const isLoggedIn = !!localStorage.getItem('userEmail');
+    const featureName = state.lastFeatureRequested || 'Premium';
+    
+    if (elements.premiumModalTitle) {
+        elements.premiumModalTitle.textContent = isLoggedIn ? t('premiumTitleAccessRequired') : t('premiumTitleLoginRequired');
+    }
+    if (elements.premiumModalCopy) {
+        elements.premiumModalCopy.textContent = isLoggedIn ? t('premiumCopyAccessRequired')(featureName) : t('premiumCopyLoginRequired')(featureName);
+    }
+    if (elements.premiumLogin) {
+        elements.premiumLogin.style.display = isLoggedIn ? 'none' : 'flex';
     }
 }
 
