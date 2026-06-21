@@ -4,8 +4,14 @@ import * as video from './video-player.js';
 import * as sessions from './session-manager.js';
 import * as ai from './ai-engine.js';
 
-// Google Cloud Console에서 생성한 실제 클라이언트 ID를 기재해 주세요.
-const GOOGLE_CLIENT_ID = '109287389240-abcdefgh123456.apps.googleusercontent.com';
+// Supabase 프로젝트 설정 (프로젝트 ID: cnzrefcanoolrjezmrrs)
+const SUPABASE_URL = 'https://cnzrefcanoolrjezmrrs.supabase.co';
+let supabaseAnonKey = localStorage.getItem('supabaseAnonKey') || '';
+let supabaseClient = null;
+
+if (supabaseAnonKey && typeof supabase !== 'undefined') {
+    supabaseClient = supabase.createClient(SUPABASE_URL, supabaseAnonKey);
+}
 
 /**
  * app.js (Main Entry Point)
@@ -36,11 +42,21 @@ function init() {
     elements.navLogin.addEventListener('click', () => {
         if (state.isPremium) {
             if (confirm(t('logoutConfirm'))) {
-                state.isPremium = false;
-                localStorage.removeItem('isPremium');
-                ui.updateNavAccountState();
-                alert(t('loggedOutMsg'));
-                resetPremiumSummary();
+                if (supabaseClient) {
+                    supabaseClient.auth.signOut().then(() => {
+                        state.isPremium = false;
+                        localStorage.removeItem('isPremium');
+                        ui.updateNavAccountState();
+                        alert(t('loggedOutMsg'));
+                        resetPremiumSummary();
+                    });
+                } else {
+                    state.isPremium = false;
+                    localStorage.removeItem('isPremium');
+                    ui.updateNavAccountState();
+                    alert(t('loggedOutMsg'));
+                    resetPremiumSummary();
+                }
             }
         } else {
             openPremiumModal('로그인');
@@ -152,61 +168,93 @@ function init() {
     // Final UI Sync
     ui.applyLanguage(state.currentLanguage);
     resetPremiumSummary();
+    
+    // Supabase Auth 연동 시작
+    if (typeof supabase !== 'undefined' && supabaseAnonKey) {
+        if (!supabaseClient) {
+            supabaseClient = supabase.createClient(SUPABASE_URL, supabaseAnonKey);
+        }
+        setupSupabaseAuth();
+    }
+
     ui.updateNavAccountState();
     ui.showPage(location.hash.slice(1), false);
 }
 
-// --- Google Sign-In Integration ---
-function handleGoogleLogin() {
-    try {
-        if (typeof google === 'undefined' || !google.accounts) {
-            alert('구글 로그인 라이브러리를 로드하는 중입니다. 잠시 후 다시 시도해 주세요.');
-            return;
+// --- Supabase & Google Sign-In Integration ---
+function setupSupabaseAuth() {
+    if (!supabaseClient) return;
+
+    // 인증 상태 변화 감지 (로그인/로그아웃 등 리다이렉트 응답 처리)
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        if (session) {
+            state.isPremium = true;
+            localStorage.setItem('isPremium', 'true');
+            localStorage.setItem('userEmail', session.user.email || '');
+            localStorage.setItem('userName', session.user.user_metadata.full_name || session.user.email || '');
+            localStorage.setItem('userPicture', session.user.user_metadata.avatar_url || '');
+            ui.updateNavAccountState();
+            closePremiumModal();
+        } else {
+            state.isPremium = false;
+            localStorage.removeItem('isPremium');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('userPicture');
+            ui.updateNavAccountState();
         }
-        
-        const client = google.accounts.oauth2.initTokenClient({
-            client_id: GOOGLE_CLIENT_ID,
-            scope: 'email profile openid',
-            callback: (tokenResponse) => {
-                if (tokenResponse && tokenResponse.access_token) {
-                    fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`)
-                        .then(res => {
-                            if (!res.ok) throw new Error('UserInfo response not ok');
-                            return res.json();
-                        })
-                        .then(userInfo => {
-                            state.isPremium = true;
-                            localStorage.setItem('isPremium', 'true');
-                            localStorage.setItem('userEmail', userInfo.email || '');
-                            localStorage.setItem('userName', userInfo.name || '');
-                            localStorage.setItem('userPicture', userInfo.picture || '');
-                            
-                            ui.updateNavAccountState();
-                            closePremiumModal();
-                            const successMsg = state.currentLanguage === 'ko' ? `Google 계정(${userInfo.email})으로 성공적으로 로그인되었습니다.` : (state.currentLanguage === 'ja' ? `Googleアカウント(${userInfo.email})でログインしました。` : `Successfully logged in with Google (${userInfo.email}).`);
-                            alert(successMsg);
-                            resetPremiumSummary();
-                        })
-                        .catch(err => {
-                            console.error('Error fetching user info:', err);
-                            state.isPremium = true;
-                            localStorage.setItem('isPremium', 'true');
-                            ui.updateNavAccountState();
-                            closePremiumModal();
-                            alert('Google 로그인에 성공했으나 사용자 정보를 불러오지 못했습니다.');
-                            resetPremiumSummary();
-                        });
-                }
-            },
-            error_callback: (err) => {
-                console.error('Google Sign-in Error:', err);
-                alert('구글 로그인 도중 오류가 발생했습니다. 클라이언트 ID 설정을 확인해 주세요.');
+    });
+
+    // 시작 시 현재 세션 확인
+    supabaseClient.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+            state.isPremium = true;
+            localStorage.setItem('isPremium', 'true');
+            ui.updateNavAccountState();
+        }
+    });
+}
+
+function handleGoogleLogin() {
+    if (typeof supabase === 'undefined') {
+        alert('Supabase 라이브러리를 로드하는 중입니다. 잠시 후 다시 시도해 주세요.');
+        return;
+    }
+
+    // Anon Key가 없는 경우 prompt 입력 요청
+    if (!supabaseAnonKey) {
+        const key = prompt(
+            "Supabase 연동을 위해 'Anon Key'가 필요합니다.\n\n" +
+            "Supabase 대시보드(Settings -> API)에서 'anon (public)' 키를 복사하여 입력해 주세요."
+        );
+        if (!key) return;
+        supabaseAnonKey = key.trim();
+        localStorage.setItem('supabaseAnonKey', supabaseAnonKey);
+        supabaseClient = supabase.createClient(SUPABASE_URL, supabaseAnonKey);
+        setupSupabaseAuth();
+    }
+
+    try {
+        if (!supabaseClient) {
+            supabaseClient = supabase.createClient(SUPABASE_URL, supabaseAnonKey);
+            setupSupabaseAuth();
+        }
+
+        // Supabase Google OAuth 로그인 창으로 리다이렉트
+        supabaseClient.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                redirectTo: window.location.origin + window.location.pathname
+            }
+        }).then(({ error }) => {
+            if (error) {
+                console.error('Supabase Google Sign-in error:', error);
+                alert('구글 로그인 요청 중 오류가 발생했습니다: ' + error.message);
             }
         });
-        client.requestAccessToken();
     } catch (error) {
-        console.error('Failed to trigger Google Sign-In:', error);
-        alert('구글 로그인 초기화에 실패했습니다. 올바른 클라이언트 ID인지 확인해 주세요.');
+        console.error('Failed to trigger Supabase Google Sign-In:', error);
+        alert('로그인 초기화에 실패했습니다. 올바른 Anon Key인지 확인해 주세요. (초기화하려면 개발자 도구 콘솔에서 localStorage.removeItem("supabaseAnonKey")를 실행하세요.)');
     }
 }
 
