@@ -6,7 +6,7 @@ import * as ai from './ai-engine.js';
 
 // Supabase 프로젝트 설정 (프로젝트 ID: yudvpqpcipdiqshjmehy)
 const SUPABASE_URL = 'https://yudvpqpcipdiqshjmehy.supabase.co';
-let supabaseAnonKey = localStorage.getItem('supabaseAnonKey') || '';
+let supabaseAnonKey = 'sb_publishable_fsKcTD-NrKYcYcQbeMK9SQ_QR4B3hmd';
 let supabaseClient = null;
 
 if (supabaseAnonKey && typeof supabase !== 'undefined') {
