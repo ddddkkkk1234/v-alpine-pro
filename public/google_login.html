@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google 계정으로 로그인</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans KR", sans-serif;
+            background-color: #f0f4f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #1f1f1f;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 28px;
+            width: 450px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .google-logo {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: #1f1f1f;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #444746;
+            margin-bottom: 30px;
+        }
+        .subtitle span {
+            color: #0b57d0;
+            font-weight: 500;
+        }
+        .account-list {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .account-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-top: 1px solid #e3e3e3;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .account-item:last-child {
+            border-bottom: 1px solid #e3e3e3;
+        }
+        .account-item:hover {
+            background-color: #f8fafd;
+        }
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #0b57d0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 16px;
+            margin-right: 12px;
+        }
+        .avatar.coach {
+            background-color: #1a73e8;
+        }
+        .avatar.guest {
+            background-color: #34a853;
+        }
+        .avatar.custom {
+            background-color: #757575;
+        }
+        .account-info {
+            flex-grow: 1;
+        }
+        .account-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1f1f1f;
+        }
+        .account-email {
+            font-size: 12px;
+            color: #444746;
+        }
+        .footer-note {
+            font-size: 12px;
+            color: #5e5e5e;
+            line-height: 1.6;
+            margin-top: 24px;
+            text-align: left;
+        }
+        .footer-note a {
+            color: #0b57d0;
+            text-decoration: none;
+        }
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Spinner & Loading */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .loading-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0b57d0;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-text {
+            font-size: 15px;
+            color: #444746;
+        }
+
+        /* Custom Email Input Screen */
+        .input-screen {
+            display: none;
+            text-align: left;
+        }
+        .input-screen.active {
+            display: block;
+        }
+        .input-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .text-input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #747775;
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .text-input:focus {
+            border-color: #0b57d0;
+            border-width: 2px;
+            padding: 15px; /* Adjust padding to keep height same */
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn {
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 24px;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn-text {
+            background: transparent;
+            color: #0b57d0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .btn-text:hover {
+            color: #0842a0;
+        }
+        .btn-primary {
+            background-color: #0b57d0;
+            color: #ffffff;
+        }
+        .btn-primary:hover {
+            background-color: #0842a0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <!-- Google Logo SVG -->
+        <svg class="google-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+
+        <!-- Screen 1: Account Selection -->
+        <div id="accountScreen">
+            <h1>로그인</h1>
+            <p class="subtitle"><span>KINECTI Neural Lab</span>으로 이동</p>
+            
+            <ul class="account-list">
+                <li class="account-item" onclick="selectAccount('이코치', 'coach.lee@gmail.com', 'coach')">
+                    <div class="avatar coach">이</div>
+                    <div class="account-info">
+                        <div class="account-name">이코치 (Coach Lee)</div>
+                        <div class="account-email">coach.lee@gmail.com</div>
+                    </div>
+                </li>
+                <li class="account-item" onclick="selectAccount('홍길동', 'gildong.hong@gmail.com', 'guest')">
+                    <div class="avatar guest">홍</div>
+                    <div class="account-info">
+                        <div class="account-name">홍길동</div>
+                        <div class="account-email">gildong.hong@gmail.com</div>
+                    </div>
+                </li>
+                <li class="account-item" onclick="showInputScreen()">
+                    <div class="avatar custom">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="display: block;">
+                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                    </div>
+                    <div class="account-info">
+                        <div class="account-name">다른 계정 사용</div>
+                        <div class="account-email">Google 이메일 입력하여 로그인</div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="footer-note">
+                이동하려면 Google에서 사용자의 이름, 이메일 주소, 언어 설정, 프로필 사진을 KINECTI Neural Lab과 공유합니다. KINECTI Neural Lab의 <a href="privacy.html" target="_blank">개인정보처리방침</a> 및 <a href="terms.html" target="_blank">이용약관</a>을 확인하세요.
+            </div>
+        </div>
+
+        <!-- Screen 2: Custom Email Input -->
+        <div id="inputScreen" class="input-screen">
+            <h1 style="margin-bottom: 4px;">이메일 또는 휴대전화</h1>
+            <p class="subtitle" style="margin-bottom: 24px;">구글 계정으로 로그인</p>
+            
+            <div class="input-group">
+                <input type="email" id="customEmail" class="text-input" placeholder="이메일 주소 입력" autocomplete="email" required>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-text" onclick="showAccountScreen()">뒤로</button>
+                <button type="button" class="btn btn-primary" onclick="submitCustomEmail()">다음</button>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loadingText">구글 계정 확인 중...</div>
+        </div>
+    </div>
+
+    <script>
+        function selectAccount(name, email, type) {
+            const overlay = document.getElementById('loadingOverlay');
+            const loadingText = document.getElementById('loadingText');
+            overlay.classList.add('active');
+            loadingText.textContent = `${email} 계정으로 로그인하는 중...`;
+
+            setTimeout(() => {
+                // Send success message to parent window
+                if (window.opener) {
+                    window.opener.postMessage({ 
+                        type: 'google-login-success',
+                        name: name,
+                        email: email
+                    }, '*');
+                }
+                window.close();
+            }, 1200);
+        }
+
+        function showInputScreen() {
+            document.getElementById('accountScreen').style.display = 'none';
+            document.getElementById('inputScreen').classList.add('active');
+            document.getElementById('customEmail').focus();
+        }
+
+        function showAccountScreen() {
+            document.getElementById('inputScreen').classList.remove('active');
+            document.getElementById('accountScreen').style.display = 'block';
+        }
+
+        function submitCustomEmail() {
+            const emailInput = document.getElementById('customEmail');
+            const email = emailInput.value.trim();
+            if (!email || !email.includes('@')) {
+                alert('올바른 이메일 주소를 입력해주세요.');
+                emailInput.focus();
+                return;
+            }
+            
+            // Extract a name prefix from email
+            const name = email.split('@')[0];
+            selectAccount(name, email, 'custom');
+        }
+    </script>
+</body>
+</html>

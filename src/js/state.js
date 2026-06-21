@@ -63,7 +63,7 @@ export function initElements() {
 
 // --- App State ---
 export const state = {
-    isPremium: new URLSearchParams(location.search).get('premium') === '1',
+    isPremium: new URLSearchParams(location.search).get('premium') === '1' || localStorage.getItem('isPremium') === 'true',
     languageStorageKey: 'kinecti-language-v2',
     currentLanguage: localStorage.getItem('kinecti-language-v2') || 'en',
     freeSessionLimit: 2,

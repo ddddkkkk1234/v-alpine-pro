@@ -30,11 +30,46 @@ function init() {
     });
     
     elements.navPremium.addEventListener('click', () => openPremiumModal('Premium'));
-    elements.navLogin.addEventListener('click', () => openPremiumModal('로그인'));
-    elements.premiumLoginForm.addEventListener('submit', e => e.preventDefault());
-    elements.premiumLogin.addEventListener('click', () => {
-        alert('로그인 연동 전입니다. 개발 검증은 주소에 ?premium=1을 붙여 진행할 수 있습니다.');
+    elements.navLogin.addEventListener('click', () => {
+        if (state.isPremium) {
+            if (confirm(t('logoutConfirm'))) {
+                state.isPremium = false;
+                localStorage.removeItem('isPremium');
+                ui.updateNavAccountState();
+                alert(t('loggedOutMsg'));
+                resetPremiumSummary();
+            }
+        } else {
+            openPremiumModal('로그인');
+        }
     });
+    
+    if (elements.premiumLoginForm) {
+        elements.premiumLoginForm.addEventListener('submit', e => e.preventDefault());
+    }
+    
+    if (elements.premiumLogin) {
+        elements.premiumLogin.addEventListener('click', () => {
+            const width = 500;
+            const height = 650;
+            const left = (window.screen.width - width) / 2;
+            const top = (window.screen.height - height) / 2;
+            window.open('public/google_login.html', 'Google Login', `width=${width},height=${height},top=${top},left=${left}`);
+        });
+    }
+    
+    window.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'google-login-success') {
+            state.isPremium = true;
+            localStorage.setItem('isPremium', 'true');
+            ui.updateNavAccountState();
+            closePremiumModal();
+            const successMsg = state.currentLanguage === 'ko' ? 'Google 계정으로 로그인되었습니다.' : (state.currentLanguage === 'ja' ? 'Googleアカウントでログインしました。' : 'Successfully logged in with Google.');
+            alert(successMsg);
+            resetPremiumSummary();
+        }
+    });
+    
     elements.premiumClose.addEventListener('click', closePremiumModal);
     
     // Video Events
