@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NN1579DFRM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NN1579DFRM');
+    </script>
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "x6whfq0in6");
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정확한 AI 분석을 위한 스키 영상 촬영 가이드 | KINECTI</title>
+    <meta name="description" content="AI 기반 자세 추정 모델의 정확도를 높이고 오차를 최소화하기 위해 스키 영상을 촬영하고 업로드할 때 지켜야 할 기술적 수칙을 설명합니다.">
+    <meta name="keywords" content="스키 영상 촬영, 스키 비디오 분석, MediaPipe 촬영 팁, 스포츠 영상 기법, 자세 추정 오차, KINECTI">
+    <style>
+        :root { --primary:#38bdf8; --accent:#22c55e; --bg:#07111f; --surface:#101b2d; --text:#f8fafc; --muted:#a8b3c7; --border:rgba(255,255,255,0.14); }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; display: flex; flex-direction: column; min-height: 100vh; }
+        header, main, footer { width: 100%; max-width: 860px; margin: 0 auto; padding: 0 20px; }
+        main { flex: 1; }
+        header { padding-top: 42px; padding-bottom: 24px; }
+        a { color: var(--primary); text-decoration: none; }
+        h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.25; margin: 18px 0 16px; color: var(--text); }
+        h2 { margin-top: 42px; color: var(--primary); font-size: 1.4rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        h3 { margin-top: 24px; font-size: 1.15rem; color: #e2e8f0; }
+        p, li { color: var(--muted); font-size: 1.02rem; }
+        ul, ol { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+        .back { font-weight: 800; display: inline-block; margin-bottom: 12px; }
+        .lead { font-size: 1.1rem; max-width: 780px; color: #cbd5e1; }
+        .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 22px; margin: 24px 0; }
+        .highlight { color: var(--primary); font-weight: 600; }
+        footer { border-top: 1px solid var(--border); margin-top: 54px; padding-top: 24px; padding-bottom: 36px; color: var(--muted); font-size: 0.85rem; text-align: center; }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "정확한 AI 분석을 위한 스키 영상 촬영 가이드",
+      "description": "AI 기반 자세 추정 모델의 정확도를 높이고 오차를 최소화하기 위해 스키 영상을 촬영하고 업로드할 때 지켜야 할 기술적 수칙을 설명합니다.",
+      "inLanguage": "ko",
+      "author": {
+        "@type": "Organization",
+        "name": "KINECTI Neural Lab"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "KINECTI Neural Lab"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://v-alpine-pro.pages.dev/public/guide-video-tips.html"
+      },
+      "datePublished": "2026-06-24",
+      "dateModified": "2026-06-24"
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <a class="back" href="guide.html">← 가이드 홈으로</a>
+        <h1>정확한 AI 분석을 위한 스키 영상 촬영 가이드</h1>
+        <p class="lead">AI 컴퓨터 비전 분석을 위한 최적의 스키 주행 영상 촬영 방법과 카메라 앵글, 그리고 흔히 발생하는 랜드마크 인식 오차를 회피하는 세부 팁을 공유합니다.</p>
+    </header>
+
+    <main>
+        <section class="panel">
+            <h2>1. AI 포즈 추정의 작동 방식과 환경적 제약</h2>
+            <p>KINECTI는 브라우저 내부에서 실시간으로 인공지능 기반 인간 포즈 추적(Human Pose Estimation) 모델을 실행합니다. 이 모델은 입력받은 동영상의 매 프레임 이미지에서 형태, 명도 대비, 에지 정보를 읽어내어 사람의 33개 관절 랜드마크 포인트 좌표를 찾아냅니다.</p>
+            <p>이 기술은 매우 가볍고 직관적이지만, 카메라 렌즈와 피사체 사이의 기하학적 요소와 날씨, 사면 환경의 지대한 영향을 받습니다. 따라서 분석 정확도를 끌어올리기 위해서는 기획 단계부터 AI 추적에 특화된 영상 촬영법을 적용해야 합니다.</p>
+        </section>
+
+        <section>
+            <h2>2. 촬영 시 필수 준수 사항 (5대 원칙)</h2>
+            
+            <h3>가. 전신(머리부터 발끝까지)의 가시성 확보</h3>
+            <p>머리끝부터 부츠가 체결되는 스키판 바인딩 부위까지 전신이 완벽하게 화면 내에 머물러 있어야 합니다. 스키가 설면에 뿌려주는 눈보라(Spindrift)에 발목이 완전히 묻히거나, 화면 모서리 밖으로 신체 일부가 벗어나는 경우 포즈 랜드마크가 왜곡되어 무릎 관절 각도가 심각하게 튀게 됩니다.</p>
+
+            <h3>나. 사선 45도 방향의 카메라 앵글 권장</h3>
+            <p>스키어의 정면 또는 정측면보다는, 사선 45도 방향에서 비스듬히 앞을 향해 미끄러져 내려오는 스키어를 촬영하는 것이 가장 좋습니다.</p>
+            <ul>
+                <li><strong>완전 정면 촬영:</strong> 스키어가 다가올수록 카메라 렌즈의 원근 왜곡으로 인해 상하체 관절 간의 거리가 축소되어 각도가 실제보다 작게 측정될 수 있습니다.</li>
+                <li><strong>완전 측면 촬영:</strong> 바깥쪽 다리에 가려 안쪽 다리의 무릎과 발목 위치가 차폐(Occlusion)되어 관절 랜드마크가 완전히 유실되거나 반대편 다리와 꼬일 수 있습니다.</li>
+            </ul>
+
+            <h3>다. 흔들림 최소화 (안정적인 패닝 샷)</h3>
+            <p>고속으로 이동하는 스키어를 따라 카메라를 수평 회전(Panning)할 때 짐벌(Grip/Gimbal)이나 삼각대를 사용하여 영상의 흔들림을 억제해야 합니다. 카메라가 덜덜 흔들리면 프레임 내 모션 블러(Motion Blur) 현상이 발생하여 관절 인식 알고리즘이 관절점을 오인하기 쉬워집니다.</p>
+
+            <h3>라. 고해상도 및 고프레임 레이트(60fps) 설정</h3>
+            <p>일반적인 30fps(초당 30프레임) 영상도 분석은 가능하지만, 빠른 활주 속도와 리드미컬한 숏턴 등을 추적할 때는 프레임 간 격차가 심해져 무릎 굴곡 변화를 정밀하게 포착하기 어렵습니다. 기기에 <strong>1080p 해상도 및 60fps(또는 120fps)</strong> 설정을 지정하여 부드러운 움직임을 기록해 주십시오.</p>
+
+            <h3>마. 조명 상태와 피사체 대비 향상</h3>
+            <p>야간 스키장이나 안개가 짙은 날, 역광 상태에서 촬영된 영상은 눈의 흰색 바탕과 스키어의 스키웨어 사이의 경계가 모호해집니다. 가능한 한 맑은 낮에 해를 등지고 촬영(순광)하며, 설면과 뚜렷하게 대비되는 유채색 계열의 스키웨어를 입고 촬영하는 것이 랜드마크 정확도 증진에 절대적인 도움이 됩니다.</p>
+        </section>
+
+        <section class="panel">
+            <h2>3. 피해야 할 촬영 에러 케이스</h2>
+            <ul>
+                <li><strong>폴(Pole)이 관절 앞을 끊임없이 교차하는 경우:</strong> 스키 폴은 얇고 길어 무릎과 골반 랜드마크를 지속적으로 가립니다. 폴체킹(Pole Planting) 동작 시 폴이 다리 앞쪽으로 깊이 지나가면 랜드마크 좌표가 폴 끝을 따라가는 현상이 나타날 수 있습니다. 가볍게 폴을 들어주는 기본 레이아웃 하에 촬영하는 것을 권장합니다.</li>
+                <li><strong>초망원 줌렌즈로 멀리서 촬영한 영상:</strong> 스키어가 화면 크기의 10% 미만으로 너무 작게 표시되면, 관절 인식을 위한 해상력 자체가 부족하여 좌표 연산의 정밀도가 바닥으로 떨어집니다.</li>
+                <li><strong>광각 렌즈 왜곡:</strong> 액션캠(예: 고프로)의 울트라 와이드 모드는 화면 주변부를 둥글게 왜곡시킵니다. 왜곡이 심한 화면 가장자리에서 스키어가 주행할 경우 관절 각도가 비정상적으로 왜곡되어 검출됩니다. 왜곡 보정 기능을 켜거나 왜곡이 덜한 리니어 모드로 촬영해 주십시오.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="guide.html">가이드 홈으로 가기</a> · <a href="../index.html">KINECTI 홈</a> · <a href="privacy.html">개인정보처리방침</a></p>
+        <p>© 2026 KINECTI Neural Lab. All rights reserved.</p>
+    </footer>
+</body>
+</html>

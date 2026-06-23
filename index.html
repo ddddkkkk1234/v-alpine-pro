@@ -29,6 +29,28 @@
     </script>
     <link rel="stylesheet" href="src/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "KINECTI",
+      "alternateName": "KINECTI 스키 코칭 비디오 리포트 도구",
+      "url": "https://v-alpine-pro.pages.dev/",
+      "description": "KINECTI는 브라우저 기반으로 스키 영상을 분석하고, 턴 구간 무릎 각도를 확인하며, 코치가 핵심 장면에 주석을 달아 학생용 디지털 코칭 리포트를 생성하는 전문 스포츠 자세 분석 도구입니다.",
+      "applicationCategory": "SportsApplication, MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires HTML5, WebGL, and JavaScript enabled.",
+      "author": {
+        "@type": "Organization",
+        "name": "KINECTI Neural Lab"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      }
+    }
+    </script>
 </head>
 <body>
     <!-- Hyperspeed Background -->
@@ -316,20 +338,22 @@
 
         <section class="page-section" id="resources">
             <div class="section-head">
-                <h2>자료실</h2>
-                <p>스키 턴 영상 기록, 무릎 굴곡, 상체 라인, 좌우 턴 밸런스에 관한 기본 정보를 정리했습니다. KINECTI 분석 결과를 더 안전하게 해석하기 위한 참고 자료입니다.</p>
+                <h2>자료실 및 심층 가이드</h2>
+                <p>스키 턴 영상 기록, 무릎 굴곡, 상체 라인, 좌우 턴 밸런스에 관한 기본 정보를 정리했습니다. KINECTI 분석 결과를 더 안전하게 해석하기 위한 전문 연구 가이드를 확인해보세요.</p>
             </div>
             <div class="article-list">
                 <article class="resource-article">
                     <h3>스키 턴 영상 분석이란 무엇인가</h3>
                     <p>스키 턴 영상 분석은 영상 속 스키어의 주요 신체 지점을 추정하고, 턴 중 무릎과 상체 라인이 어떻게 변하는지 시간 순서대로 살펴보는 방식입니다. 어깨, 골반, 무릎, 발목 위치를 프레임마다 추적하면 턴 흐름을 시각적으로 다시 확인할 수 있습니다.</p>
                     <p>KINECTI는 사용자가 선택한 스키 영상을 브라우저에서 처리해 관절 위치와 각도 정보를 표시합니다. 이 방식은 개인 연습 기록을 확인하거나 좌우 턴을 비교할 때 도움이 됩니다. 다만 촬영 거리, 경사, 카메라 각도, 스키복과 폴 가림에 따라 추정 결과가 달라질 수 있으므로 숫자 하나만으로 자세를 단정하면 안 됩니다.</p>
+                    <p style="margin-top: 14px;"><a href="public/guide-ski-turns.html" style="color: #38bdf8; font-weight: bold; text-decoration: underline;">→ 스키 턴 종류와 AI 분석 지표 심층 가이드 읽기</a></p>
                 </article>
 
                 <article class="resource-article">
                     <h3>무릎 굴곡이 스키 턴에서 중요한 이유</h3>
                     <p>스키 턴에서는 양쪽 무릎의 굴곡과 좌우 차이가 턴 안정성, 하중 이동, 자세 리듬을 보는 데 도움이 됩니다. 한쪽 턴에서만 무릎 굴곡이 크게 무너지거나 좌우 차이가 반복되면 턴 밸런스를 다시 점검할 수 있습니다.</p>
                     <p>영상 분석에서 무릎 굴곡은 골반, 무릎, 발목 위치를 기준으로 계산합니다. 이 값은 자세 확인을 돕는 참고 정보이며, 기술 수준이나 부상 가능성을 확정하는 진단 자료는 아닙니다. 통증이 있거나 부상 이력이 있다면 분석 결과보다 전문가의 평가를 우선해야 합니다.</p>
+                    <p style="margin-top: 14px;"><a href="public/guide-knee-angle.html" style="color: #38bdf8; font-weight: bold; text-decoration: underline;">→ 무릎 굴곡 각도와 하중 이동 생체역학 가이드 읽기</a></p>
                 </article>
 
                 <article class="resource-article">
@@ -341,7 +365,7 @@
                         <li>좌우 턴에서 무릎 굴곡 차이가 반복적으로 크게 나타나는지 봅니다.</li>
                         <li>폴, 다른 사람, 리프트 기둥 등에 신체 일부가 가려지면 결과가 흔들릴 수 있습니다.</li>
                     </ul>
-                    <p>KINECTI의 주석 기능을 사용하면 턴 진입, 전환, 마무리 프레임에 표시를 남겨 자세 변화를 비교하기 쉽습니다.</p>
+                    <p style="margin-top: 14px;"><a href="public/guide-video-tips.html" style="color: #38bdf8; font-weight: bold; text-decoration: underline;">→ AI 분석을 위한 스키 영상 촬영법 가이드 읽기</a></p>
                 </article>
 
                 <article class="resource-article">
@@ -354,6 +378,7 @@
                     <h3>스키 코칭 영상 보드를 사용할 때 주의할 점</h3>
                     <p>KINECTI는 코치가 영상을 보며 설명하고 리포트를 만들기 위한 도구입니다. AI 참고 지표는 촬영 환경과 모델 추정에 영향을 받기 때문에 절대적인 판단 기준으로 사용하면 안 됩니다. 통증이나 부상과 관련된 판단은 의료 전문가나 스키 전문가의 상담을 받아야 합니다.</p>
                     <p>더 안정적인 분석을 위해서는 스키어가 화면에서 너무 작지 않게 나오고, 턴 전체가 보이도록 촬영하는 것이 좋습니다. 같은 자세를 비교할 때는 매번 비슷한 거리와 각도로 촬영하면 변화 추적에 도움이 됩니다.</p>
+                    <p style="margin-top: 14px;"><a href="public/guide-coaching-report.html" style="color: #38bdf8; font-weight: bold; text-decoration: underline;">→ 디지털 코칭 리포트를 활용한 스키 강습법 가이드 읽기</a></p>
                 </article>
             </div>
         </section>
